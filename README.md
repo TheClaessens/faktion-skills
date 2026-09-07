@@ -54,11 +54,6 @@ Nothing reaches JIRA without you approving it first.
 
 `skills/ticket-standard/SKILL.md` is the single source of truth for what a good Faktion ticket looks like. Every other skill points at it and none of them restate it, so a change there changes every skill at once. Edit that file, not the writers.
 
-Two open decisions are marked `OPEN DECISION` in the source:
-
-- **Bug title convention** - the original skill was Story-only, so `write-bug`'s shape is a proposal rather than tuned practice.
-- **A type for work with no user** - a dependency bump or migration has no persona, and forcing one produces the anti-pattern the bar warns about.
-
 ## Releasing
 
 [`CHANGELOG.md`](CHANGELOG.md) is written by hand, by whoever made the change - but not remembered by hand. A `PostToolUse` hook in [`.claude/settings.json`](.claude/settings.json) fires after every `git commit` and asks the agent whether the commit earned an entry, then to amend it into that same commit. Housekeeping earns nothing. The test is whether a PM using the plugin would notice.

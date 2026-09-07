@@ -8,6 +8,8 @@ Entries under `## [Unreleased]` are written after each commit, prompted by the h
 
 ### Added
 
+- Titles now cover every kind of work. Technical work with no end user takes **Developer** as the persona (*As a Developer I want Postgres upgraded to 16 so that we stay on a supported version*), and bugs take no persona at all - they state what is broken.
+
 - The JIRA connector now ships with the plugin. Installing prompts you to sign in to Atlassian, instead of leaving you to connect it yourself afterwards.
 
 ## [1.0.0-rc.1] - 2026-09-07

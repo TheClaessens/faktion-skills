@@ -49,8 +49,10 @@ Example: _As a User I want to be able to request a new password so that I can lo
 
 Keep this format when it fits. When the requester supplies a different title style, follow theirs.
 
-<!-- OPEN DECISION: this convention is Story-shaped. Bugs and chores need their own,
-     or write-bug forces a persona onto a defect. See skills/write-bug/SKILL.md. -->
+**The `so that` is the part that does the work.** It forces a stated reason, and a ticket without one is a ticket nobody can prioritise. The persona is how a story names who the reason belongs to, and two kinds of work name it differently:
+
+- **Technical work with no end user** - a dependency bump, a migration, a refactor - takes **Developer** as the persona. The team is the genuine beneficiary, so say so. _As a Developer I want Postgres upgraded to 16 so that we stay on a supported version._
+- **Bugs** take no persona at all. The reason is that the thing is broken. See [`write-bug`](../write-bug/SKILL.md).
 
 ## Description
 
@@ -82,4 +84,4 @@ The tells that a ticket was generated rather than written:
 - Numbered acceptance criteria in place of a DoD checklist
 - Label or priority metadata sitting in the description body
 - Padding: an edge case, an error-handling paragraph, or a sub-feature the requester never mentioned
-- A persona forced onto work that has no user (a dependency bump, a migration)
+- A **false persona**: claiming an end user benefits when the beneficiary is the team. Technical work says Developer; it does not invent a User who wanted the migration

@@ -11,9 +11,6 @@ Same **draft, review, push** loop as [`write-ticket`](../write-ticket/SKILL.md),
 
 ## What changes for a bug
 
-<!-- OPEN DECISION: jira-ticket-writer had no bug type. What follows is a proposal,
-     not six months of tuning. Confirm or replace before rolling this out to PMs. -->
-
 ### Title
 
 State the broken behaviour. **No persona.** Forcing "As a User I want..." onto a defect produces the canonical anti-pattern - it reads as a feature request for the bug.
