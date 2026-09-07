@@ -6,6 +6,10 @@ Entries under `## [Unreleased]` are appended automatically by the `post-commit` 
 
 ## [Unreleased]
 
+### Added
+
+- auto-append commit entries via post-commit hook (`changelog`)
+
 ## [1.0.0-rc.1] - 2026-09-07
 
 First release candidate: the ticket framework as a Claude Code plugin.

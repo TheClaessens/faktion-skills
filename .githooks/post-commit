@@ -1,0 +1,23 @@
+#!/bin/sh
+# Appends the commit to CHANGELOG.md under [Unreleased], then amends it in.
+# Only feat/fix/change/remove commits produce an entry; everything else is silent.
+# Enable with: git config core.hooksPath .githooks
+
+[ -n "$CHANGELOG_HOOK" ] && exit 0
+
+# Never rewrite a commit that is part of a merge, rebase or cherry-pick.
+git rev-parse -q --verify MERGE_HEAD >/dev/null 2>&1 && exit 0
+git rev-parse -q --verify CHERRY_PICK_HEAD >/dev/null 2>&1 && exit 0
+[ -d "$(git rev-parse --git-path rebase-merge)" ] && exit 0
+[ -d "$(git rev-parse --git-path rebase-apply)" ] && exit 0
+
+root=$(git rev-parse --show-toplevel) || exit 0
+[ -f "$root/CHANGELOG.md" ] || exit 0
+
+CHANGELOG_HOOK=1 python3 "$root/.githooks/changelog.py" "$root" || exit 0
+
+# Nothing appended means nothing to amend.
+git diff --quiet -- "$root/CHANGELOG.md" && exit 0
+
+CHANGELOG_HOOK=1 git add "$root/CHANGELOG.md"
+CHANGELOG_HOOK=1 git commit --amend --no-edit --no-verify --quiet
