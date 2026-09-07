@@ -1,10 +1,10 @@
 ---
-name: ask-thomas
+name: ask-faktion-pm
 description: The front door - work out what a ticket needs next and do it.
 disable-model-invocation: true
 ---
 
-# Ask Thomas
+# Ask Faktion PM
 
 The one name a PM has to remember. Work out what this ticket needs next, say so, and do it.
 

@@ -26,7 +26,7 @@ claude
 
 ## Using it
 
-Type **`/ask-thomas`** and say what you have. It works out what the ticket needs and does it.
+Type **`/ask-faktion-pm`** and say what you have. It works out what the ticket needs and does it.
 
 It reads the board first - related tickets, the epic, whether this already exists, the words your project actually uses - so you are not re-explaining context it could look up. It takes vocabulary and references from existing tickets; it never takes requirements from them.
 
@@ -42,7 +42,7 @@ Nothing reaches JIRA without you approving it first.
 
 | Skill | Does |
 |---|---|
-| `ask-thomas` | Front door. Works out what a ticket needs next. |
+| `ask-faktion-pm` | Front door. Works out what a ticket needs next. |
 | `grill-ticket` | Interviews you until the scope is settled. Runs before every ticket. |
 | `write-ticket` | Idea, conversation, or voice note into a story. Batches, epics, follow-ups, rewrites. |
 | `write-bug` | A defect into a bug ticket. |

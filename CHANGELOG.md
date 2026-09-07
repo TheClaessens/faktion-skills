@@ -6,6 +6,10 @@ Entries under `## [Unreleased]` are written after each commit, prompted by the h
 
 ## [Unreleased]
 
+### Changed
+
+- **BREAKING** The front door is now `/ask-faktion-pm`, renamed from `/ask-thomas`.
+
 ## [1.0.0-rc.1] - 2026-09-07
 
 First release candidate: the ticket framework as a plugin for Cowork and Claude Code.
