@@ -6,6 +6,10 @@ Entries under `## [Unreleased]` are written after each commit, prompted by the h
 
 ## [Unreleased]
 
+### Added
+
+- The JIRA connector now ships with the plugin. Installing prompts you to sign in to Atlassian, instead of leaving you to connect it yourself afterwards.
+
 ## [1.0.0-rc.1] - 2026-09-07
 
 First release candidate: the ticket framework as a Claude Code plugin.

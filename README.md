@@ -10,7 +10,7 @@ No terminal, no install. In Claude, open **Customize → Plugins**:
 
 1. **Add marketplace** → `TheClaessens/faktion-skill-library`
 2. Install **faktion-pm-skills** from the list
-3. Connect your Atlassian account so the skills can reach JIRA
+3. Sign in to Atlassian when prompted - the plugin brings the JIRA connector with it
 
 **Update** on the marketplace pulls the latest version.
 
@@ -21,7 +21,7 @@ npm install -g @anthropic-ai/claude-code
 claude
 /plugin marketplace add TheClaessens/faktion-skill-library
 /plugin install faktion-pm-skills@faktion
-/mcp   # connect JIRA
+# the Atlassian connector installs with the plugin; sign in when prompted
 ```
 
 ## Using it
