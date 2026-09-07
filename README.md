@@ -12,7 +12,7 @@ npm install -g @anthropic-ai/claude-code
 
 # 2. This plugin
 claude
-/plugin marketplace add TheClaessens/faktion-skills
+/plugin marketplace add TheClaessens/faktion-skill-library
 /plugin install faktion-pm-skills@faktion
 
 # 3. Connect JIRA
