@@ -2,13 +2,9 @@
 
 Kept in [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) shape, versioned per [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-Entries under `## [Unreleased]` are appended automatically by the `post-commit` hook in `.githooks/`. See [Changelog and commits](README.md#changelog-and-commits).
+Entries under `## [Unreleased]` are written after each commit, prompted by the hook in `.claude/hooks/`. See [Releasing](README.md#releasing).
 
 ## [Unreleased]
-
-### Added
-
-- auto-append commit entries via post-commit hook (`changelog`)
 
 ## [1.0.0-rc.1] - 2026-09-07
 

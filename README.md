@@ -54,24 +54,16 @@ Two open decisions are marked `OPEN DECISION` in the source:
 - **Bug title convention** - the original skill was Story-only, so `write-bug`'s shape is a proposal rather than tuned practice.
 - **A type for work with no user** - a dependency bump or migration has no persona, and forcing one produces the anti-pattern the bar warns about.
 
-## Changelog and commits
+## Releasing
 
-[`CHANGELOG.md`](CHANGELOG.md) is written by a `post-commit` hook, from the commit messages. To turn it on after cloning:
+[`CHANGELOG.md`](CHANGELOG.md) is written by hand, by whoever made the change - but not remembered by hand. A `PostToolUse` hook in [`.claude/settings.json`](.claude/settings.json) fires after every `git commit` and asks the agent whether the commit earned an entry, then to amend it into that same commit. Housekeeping earns nothing. The test is whether a PM using the plugin would notice.
 
-```bash
-git config core.hooksPath .githooks
-```
+Entries are written for that PM: *"the grill now pushes back when a ticket is functionally vague"*, not *"feat(smells): add catalogue"*. A changelog that restates commit subjects is a `git log` with worse formatting.
 
-Commit subjects follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), and four types produce a changelog entry:
+A version lives in three places, and cutting a release means moving all three together:
 
-| Subject | Lands under |
-|---|---|
-| `feat(grill-ticket): ...` | Added |
-| `fix(smells): ...` | Fixed |
-| `change(bar): ...` | Changed |
-| `remove(...): ...` | Removed |
-| `feat!: ...` or a `BREAKING CHANGE:` body | Changed, marked **BREAKING** |
+1. `version` in [`.claude-plugin/plugin.json`](.claude-plugin/plugin.json)
+2. The `## [Unreleased]` heading in `CHANGELOG.md`, renamed to the new version with today's date, and a fresh empty `## [Unreleased]` above it
+3. The git tag - `git tag -a v1.0.0 -m "..."` and `git push --tags`
 
-Anything else - `docs`, `chore`, `refactor`, a bare subject - commits normally and writes nothing. Reserve the four types for changes a PM would notice.
-
-The hook appends the entry and amends it into the commit it describes, so the changelog is never a commit behind. It stands down during merges, rebases and cherry-picks, and does nothing to a commit that is already pushed. Write the release heading by hand at release time: move `## [Unreleased]` entries under a new version heading, and edit freely - the hook only ever appends, so a curated entry survives.
+Which number moves follows from what accumulated under `[Unreleased]`: anything marked **BREAKING** makes it a major, an `### Added` entry makes it a minor, `### Fixed` alone makes it a patch.
