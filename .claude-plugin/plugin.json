@@ -1,0 +1,23 @@
+{
+  "name": "faktion-pm-skills",
+  "version": "0.1.0",
+  "description": "Faktion's ticket-writing skills for PMs: write stories and bugs, review tickets against the house bar, and derive test plans - pushed straight to JIRA.",
+  "author": {
+    "name": "Thomas Claessens"
+  },
+  "keywords": [
+    "jira",
+    "tickets",
+    "product-management",
+    "faktion"
+  ],
+  "skills": [
+    "./skills/ticket-standard",
+    "./skills/grill-ticket",
+    "./skills/write-ticket",
+    "./skills/write-bug",
+    "./skills/review-ticket",
+    "./skills/ticket-test-plan",
+    "./skills/ask-thomas"
+  ]
+}
