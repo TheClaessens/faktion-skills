@@ -6,15 +6,9 @@ Entries under `## [Unreleased]` are written after each commit, prompted by the h
 
 ## [Unreleased]
 
-### Added
-
-- Titles now cover every kind of work. Technical work with no end user takes **Developer** as the persona (*As a Developer I want Postgres upgraded to 16 so that we stay on a supported version*), and bugs take no persona at all - they state what is broken.
-
-- The JIRA connector now ships with the plugin. Installing prompts you to sign in to Atlassian, instead of leaving you to connect it yourself afterwards.
-
 ## [1.0.0-rc.1] - 2026-09-07
 
-First release candidate: the ticket framework as a Claude Code plugin.
+First release candidate: the ticket framework as a plugin for Cowork and Claude Code.
 
 ### Added
 
@@ -29,3 +23,5 @@ First release candidate: the ticket framework as a Claude Code plugin.
 - `review-ticket` - grades a ticket against the bar without rewriting it.
 - `ticket-test-plan` - turns a Definition of Done into a test plan, and reports DoD lines that cannot become checks.
 - `ask-thomas` - the front door, and the only skill name a PM has to remember.
+- The JIRA connector ships with the plugin, so installing prompts you to sign in to Atlassian rather than leaving you to connect it afterwards.
+- Title conventions covering every kind of work: technical work with no end user takes **Developer** as the persona, and bugs take no persona at all - they state what is broken.
