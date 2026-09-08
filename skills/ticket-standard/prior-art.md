@@ -35,9 +35,31 @@ Work cheapest-first and stop as soon as the branch is answered. The project key 
 | A named epic's children | `project = SGS AND parent = SGS-78` |
 | A key the requester mentioned | `getJiraIssue` on the key directly |
 
-`text ~` covers summary, description and comments, so it is the right first reach. `ORDER BY updated DESC` puts live work above abandoned work.
+`text ~` matches against summary, description and comments on the server, so it is the right first reach - it searches the whole body whether or not you ask for the body back. `ORDER BY updated DESC` puts live work above abandoned work.
 
-**Search results are summaries; that is usually enough.** Fetch a full body with `getJiraIssue` only for the handful that actually bear on this ticket - a ticket the requester named, or a likely duplicate. Reading twenty full bodies to write one ticket is how the leak gets its material.
+## The budget
+
+A search left to its defaults returns the **full description of every issue it matches**. That is the single largest cost in writing a ticket, and it is also the leak's supply line: requirements you never needed are sitting in context, ready to be lifted. Bounding it serves both.
+
+**Always pass `fields` on a search.** Ask for what prior art is actually for:
+
+```
+fields: ["summary", "status", "issuetype", "parent", "updated"]
+```
+
+That is vocabulary, keys, epic and liveness - everything the take-list above allows - and nothing on the never-take list. Cap the search with `maxResults` at the floor the tool permits.
+
+**One branch needs the descriptions back:** hunting a leak in [`review-ticket`](../review-ticket/SKILL.md), where the whole job is finding a requirement that appears near-verbatim on a neighbouring ticket. Add `description` to `fields` there, and only there.
+
+**Three full bodies, at most.** A `getJiraIssue` call is earned by one of three things, and nothing else:
+
+1. A key the requester named.
+2. A likely duplicate, before you raise it with them.
+3. The parent epic, when you are placing this ticket under it.
+
+Pass `responseContentFormat: "markdown"` when you do.
+
+**When the budget binds, that is a finding.** More than three tickets looking worth a full read means the area is crowded - a probable duplicate, or a ticket that should be split. Say so and ask, rather than reading the fourth.
 
 **JQL is eventually consistent.** A ticket pushed seconds ago may not appear in a search yet. When drafting a batch, track the keys you just created rather than searching for them.
 

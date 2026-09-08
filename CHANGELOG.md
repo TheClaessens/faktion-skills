@@ -9,6 +9,7 @@ Entries under `## [Unreleased]` are written after each commit, prompted by the h
 ### Changed
 
 - **BREAKING** The front door is now `/ask-faktion-pm`, renamed from `/ask-thomas`.
+- Board searches now ask JIRA for titles and keys instead of pulling the full text of every matching ticket. Faster, and requirements from neighbouring tickets can no longer leak into your draft.
 
 ## [1.0.0-rc.1] - 2026-09-07
 
