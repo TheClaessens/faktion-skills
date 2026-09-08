@@ -38,7 +38,7 @@ A smell is a phrase that reads as settled and is not - "delete a transcription s
 
 That test also bounds you. A fork **inside** what they asked for is yours to raise; a feature **adjacent** to it is not, and asking about it is how a grill talks a requester into a bigger ticket than they came for.
 
-**Functional vagueness gets pushed on, not noted.** A ticket is functionally vague when a developer could build the wrong thing and still honestly say they followed it. Name what they would have to guess and ask for the answer - politely recording the ambiguity and drafting anyway is the failure this skill exists to prevent.
+**Functional vagueness gets pushed on, not noted.** Name what a developer would have to guess and ask for the answer - politely recording the ambiguity and drafting anyway is the failure this skill exists to prevent.
 
 ## When they already said everything
 

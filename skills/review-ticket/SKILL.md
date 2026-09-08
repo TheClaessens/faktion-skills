@@ -24,7 +24,7 @@ Three kinds of finding, in descending severity:
    **Search the board for the suspicious lines** ([`prior-art.md`](../ticket-standard/prior-art.md)). A requirement that appears near-verbatim on a neighbouring ticket is the leak, not a coincidence - and finding its origin turns a hunch into a citable finding.
 2. **Missing scope** - a developer cannot start without asking a question. Name the question.
 
-   Run [`smells.md`](../ticket-standard/smells.md) over the ticket. **A ticket is functionally vague when a developer could build the wrong thing and still honestly say they followed it** - and an unresolved smell is that finding, already phrased. "Delete a session" without soft-or-hard has the gap whether or not anyone noticed it.
+   Run [`smells.md`](../ticket-standard/smells.md) over the ticket. An unresolved smell is a **functional vagueness** finding, already phrased. "Delete a session" without soft-or-hard has the gap whether or not anyone noticed it.
 
    Report these as gaps, not as suggestions. The developer who builds the wrong thing will have followed the ticket exactly.
 3. **Bar violations** - title convention, DoD introducing new requirements, technical detail the requester never raised, the anti-patterns list.
