@@ -6,6 +6,8 @@ Entries under `## [Unreleased]` are written after each commit, prompted by the h
 
 ## [Unreleased]
 
+## [1.0.0-rc.2] - 2026-09-08
+
 ### Changed
 
 - **BREAKING** The front door is now `/ask-faktion-pm`, renamed from `/ask-thomas`.

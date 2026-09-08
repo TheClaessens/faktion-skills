@@ -1,6 +1,6 @@
 {
   "name": "faktion-pm-skills",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0-rc.2",
   "description": "Faktion's ticket-writing skills for PMs: write stories and bugs, review tickets against the house bar, and derive test plans - pushed straight to JIRA.",
   "mcpServers": "./.mcp.json",
   "author": {
