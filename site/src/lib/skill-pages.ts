@@ -1,7 +1,7 @@
 import type { Skill, SkillInvocation } from './content';
 
 const GITHUB_BLOB_ROOT =
-	'https://github.com/TheClaessens/faktion-skills/blob/main/plugins/faktion-pm-skills';
+	'https://github.com/faktionbe/faktion-skills/blob/main/plugins/faktion-pm-skills';
 
 /**
  * Site path for a skill page, without Astro `base`.

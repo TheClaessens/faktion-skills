@@ -37,4 +37,4 @@ it with `npm run preview`. During work, `npm run dev` serves a live reload.
 
 GitHub Actions runs the same `npm ci` and `npm run build` on every pull
 request and on every push to `main`. A failed build skips the GitHub Pages
-deploy. Pages is served at `https://theclaessens.github.io/faktion-skills/`.
+deploy. Pages is served at `https://faktionbe.github.io/faktion-skills/`.

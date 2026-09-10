@@ -31,7 +31,7 @@ generateSourceDocs();
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://theclaessens.github.io',
+	site: 'https://faktionbe.github.io',
 	base: SITE_BASE,
 	integrations: [
 		starlight({
@@ -58,7 +58,7 @@ export default defineConfig({
 				{
 					icon: 'github',
 					label: 'GitHub',
-					href: 'https://github.com/TheClaessens/faktion-skills',
+					href: 'https://github.com/faktionbe/faktion-skills',
 				},
 			],
 			sidebar: [

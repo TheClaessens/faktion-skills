@@ -8,7 +8,7 @@ Entries under `## [Unreleased]` are written after each commit, prompted by the h
 
 ### Changed
 
-- The marketplace is added as `TheClaessens/faktion-skills`. The old repository name still redirects.
+- The marketplace is added as `faktionbe/faktion-skills`. `TheClaessens/faktion-skills` still redirects.
 
 ## [1.0.0-rc.2] - 2026-09-08
 

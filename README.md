@@ -1,6 +1,6 @@
 # Faktion skills
 
-**Using the PM skills?** Start on the [documentation site](https://theclaessens.github.io/faktion-skills/). What they do, how they work, and the ticket bar live there.
+**Using the PM skills?** Start on the [documentation site](https://faktionbe.github.io/faktion-skills/). What they do, how they work, and the ticket bar live there.
 
 This repository is the marketplace. The rest of this file is how to install from it, and how to change it.
 
@@ -10,7 +10,7 @@ This repository is the marketplace. The rest of this file is how to install from
 
 No terminal, no install. In Claude, open **Customize → Plugins**:
 
-1. **Add marketplace** → `TheClaessens/faktion-skills`
+1. **Add marketplace** → `faktionbe/faktion-skills`
 2. Install **faktion-pm-skills** from the list
 3. Sign in to Atlassian when prompted - the plugin brings the JIRA connector with it
 
@@ -21,7 +21,7 @@ No terminal, no install. In Claude, open **Customize → Plugins**:
 ```bash
 npm install -g @anthropic-ai/claude-code
 claude
-/plugin marketplace add TheClaessens/faktion-skills
+/plugin marketplace add faktionbe/faktion-skills
 /plugin install faktion-pm-skills@faktion
 # the Atlassian connector installs with the plugin; sign in when prompted
 ```

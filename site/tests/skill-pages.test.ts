@@ -20,10 +20,10 @@ describe('skill page routes', () => {
 		]);
 
 		expect(skillSourceUrl(inventory.skills[0])).toBe(
-			'https://github.com/TheClaessens/faktion-skills/blob/main/plugins/faktion-pm-skills/skills/grill-brief/SKILL.md',
+			'https://github.com/faktionbe/faktion-skills/blob/main/plugins/faktion-pm-skills/skills/grill-brief/SKILL.md',
 		);
 		expect(skillSourceUrl(inventory.skills[1])).toBe(
-			'https://github.com/TheClaessens/faktion-skills/blob/main/plugins/faktion-pm-skills/skills/front-door/SKILL.md',
+			'https://github.com/faktionbe/faktion-skills/blob/main/plugins/faktion-pm-skills/skills/front-door/SKILL.md',
 		);
 	});
 });

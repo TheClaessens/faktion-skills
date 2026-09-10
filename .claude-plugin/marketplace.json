@@ -1,7 +1,7 @@
 {
   "name": "faktion",
   "owner": {
-    "name": "Thomas Claessens"
+    "name": "Faktion"
   },
   "description": "Faktion's internal Claude Code skills.",
   "plugins": [
