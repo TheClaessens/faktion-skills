@@ -2,7 +2,10 @@
 
 Astro with the [Starlight](https://starlight.astro.build/) documentation theme.
 The homepage is a custom route (`src/pages/index.astro`), outside the themed
-layout. Markdown under `src/content/docs/` is the documentation.
+layout. Markdown under `src/content/docs/` is the documentation. The bar, smells, and
+reference pages are generated at build time from
+`plugins/faktion-pm-skills/skills/ticket-standard/` through the document
+transform — they are not hand-written copies.
 
 English only. Do not add translation scaffolding.
 

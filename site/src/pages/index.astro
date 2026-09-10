@@ -11,6 +11,7 @@ function withBase(path: string) {
 
 const docsHref = withBase('/overview/');
 const installHref = withBase('/install/');
+const barHref = withBase('/the-bar/');
 const faviconHref = withBase('/favicon.svg');
 ---
 
@@ -44,10 +45,12 @@ const faviconHref = withBase('/favicon.svg');
 			</p>
 			<p>
 				If you do not write tickets for a living, this is not aimed at you. If
-				you do, install first. The pipeline and the bar land on later pages.
+				you do, install first. The <a href={barHref}>house ticket bar</a> is
+				readable here whether or not you install.
 			</p>
 			<p class="actions">
 				<a class="docs-link" href={installHref}>Install</a>
+				<a class="docs-link-secondary" href={barHref}>Read the ticket bar</a>
 				<a class="docs-link-secondary" href={docsHref}>Read the documentation</a>
 			</p>
 		</main>

@@ -15,9 +15,10 @@ orientation surface. These pages are the reference around it.
 
 This overview exists so the documentation navigation works. [Install](../install/)
 is the first page to follow. [What it won't do](../what-it-wont-do/) is the
-guarantees a live board needs before you install. Later pages will cover how
-the pipeline runs, the house ticket bar, and the catalogue of functional-vagueness
-smells.
+guarantees a live board needs before you install. The [house ticket bar](../the-bar/)
+and the [smells catalogue](../smells/) are generated from the files the tool
+enforces, not rewritten here. Prior art, intake, and JIRA mechanics sit under
+Reference.
 
 The current [skill inventory](../how-it-works/) is generated from the plugin
 manifest. The version shown there is the version in that file, not a number
