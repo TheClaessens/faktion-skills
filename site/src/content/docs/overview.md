@@ -13,10 +13,10 @@ orientation surface. These pages are the reference around it.
 
 ## What is here today
 
-This overview exists so the documentation navigation works. Later pages will
-cover install (Cowork first), how the pipeline runs, the house ticket bar,
-the catalogue of functional-vagueness smells, and explicit guarantees about
-what the tool will not do.
+This overview exists so the documentation navigation works. [Install](./install.mdx)
+is the first page to follow. Later pages will cover how the pipeline runs, the
+house ticket bar, the catalogue of functional-vagueness smells, and explicit
+guarantees about what the tool will not do.
 
 ## Who it is for
 
