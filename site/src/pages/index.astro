@@ -1,0 +1,143 @@
+---
+/**
+ * Custom homepage, outside the Starlight documentation layout.
+ * Later visual design fills this route rather than displacing a themed page.
+ */
+function withBase(path: string) {
+	const root = import.meta.env.BASE_URL.replace(/\/$/, '');
+	const suffix = path.startsWith('/') ? path : `/${path}`;
+	return `${root}${suffix}`;
+}
+
+const docsHref = withBase('/overview/');
+const faviconHref = withBase('/favicon.svg');
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Faktion PM skills</title>
+		<meta
+			name="description"
+			content="Ticket-writing skills for Faktion PMs. They turn a vague request into a ticket that meets the house bar, and nothing reaches JIRA until you approve it."
+		/>
+		<link rel="icon" href={faviconHref} type="image/svg+xml" />
+	</head>
+	<body>
+		<main>
+			<p class="eyebrow">Faktion · product</p>
+			<h1>Ticket-writing skills for Faktion PMs</h1>
+			<p>
+				These skills sit in Claude and help you turn what you have — a vague
+				request, a bug, a voice note — into a JIRA ticket that meets the house
+				bar. You remember one name: <code>/ask-faktion-pm</code>. Everything else
+				runs on its own.
+			</p>
+			<p>
+				They read the board for context, push back when the functional scope is
+				vague, and park anything you cannot answer as an open question on the
+				ticket. They do not invent scope, and they do not copy requirements off
+				neighbouring tickets. Nothing is pushed until you say so.
+			</p>
+			<p>
+				If you do not write tickets for a living, this is not aimed at you. If
+				you do, start with the documentation — install, the pipeline, and the
+				bar itself land on later pages.
+			</p>
+			<p>
+				<a class="docs-link" href={docsHref}>Read the documentation</a>
+			</p>
+		</main>
+	</body>
+</html>
+
+<style>
+	:root {
+		color-scheme: light dark;
+		--bg: light-dark(#f7f5f2, #16151a);
+		--fg: light-dark(#1c1917, #f4f0ea);
+		--muted: light-dark(#57534e, #c4b8ab);
+		--accent: light-dark(#1d4ed8, #93c5fd);
+		--code-bg: light-dark(#ece8e3, #2a2724);
+	}
+
+	* {
+		box-sizing: border-box;
+	}
+
+	html {
+		font-size: 100%;
+	}
+
+	body {
+		margin: 0;
+		min-height: 100vh;
+		background: var(--bg);
+		color: var(--fg);
+		font-family:
+			ui-sans-serif,
+			system-ui,
+			-apple-system,
+			Segoe UI,
+			sans-serif;
+		line-height: 1.55;
+	}
+
+	main {
+		max-width: 40rem;
+		margin: 0 auto;
+		padding: 2.5rem 1.25rem 4rem;
+	}
+
+	.eyebrow {
+		margin: 0 0 0.75rem;
+		font-size: 0.8125rem;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--muted);
+	}
+
+	h1 {
+		margin: 0 0 1rem;
+		font-size: clamp(1.75rem, 5vw, 2.25rem);
+		line-height: 1.2;
+		font-weight: 650;
+	}
+
+	p {
+		margin: 0 0 1rem;
+		font-size: 1.0625rem;
+	}
+
+	code {
+		font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+		font-size: 0.92em;
+		background: var(--code-bg);
+		padding: 0.1em 0.35em;
+		border-radius: 0.25rem;
+	}
+
+	.docs-link {
+		display: inline-block;
+		margin-top: 0.5rem;
+		padding: 0.7rem 1rem;
+		font-weight: 600;
+		color: var(--bg);
+		background: var(--fg);
+		text-decoration: none;
+		border-radius: 0.4rem;
+	}
+
+	.docs-link:focus-visible {
+		outline: 3px solid var(--accent);
+		outline-offset: 3px;
+	}
+
+	@media (min-width: 40rem) {
+		main {
+			padding-top: 4.5rem;
+		}
+	}
+</style>
