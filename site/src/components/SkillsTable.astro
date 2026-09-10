@@ -1,0 +1,36 @@
+---
+import { loadInventory, type SkillInvocation } from '../lib/content';
+import { PM_PLUGIN_ROOT } from '../lib/plugin-root';
+
+const inventory = loadInventory(PM_PLUGIN_ROOT);
+
+function invocationLabel(invocation: SkillInvocation): string {
+	return invocation === 'user-typed' ? 'Typed by a user' : 'Model-invoked';
+}
+---
+
+<p>
+	Plugin version <strong>{inventory.version}</strong>, read from the plugin
+	manifest at build time.
+</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Skill</th>
+			<th>Description</th>
+			<th>How it is invoked</th>
+		</tr>
+	</thead>
+	<tbody>
+		{
+			inventory.skills.map((skill) => (
+				<tr>
+					<td><code>{skill.name}</code></td>
+					<td>{skill.description}</td>
+					<td>{invocationLabel(skill.invocation)}</td>
+				</tr>
+			))
+		}
+	</tbody>
+</table>

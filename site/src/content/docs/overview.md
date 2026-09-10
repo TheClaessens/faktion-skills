@@ -18,6 +18,10 @@ cover install (Cowork first), how the pipeline runs, the house ticket bar,
 the catalogue of functional-vagueness smells, and explicit guarantees about
 what the tool will not do.
 
+The current [skill inventory](how-it-works.md) is generated from the plugin
+manifest. The version shown there is the version in that file, not a number
+typed into the site.
+
 ## Who it is for
 
 Faktion PMs who write stories and bugs. If that is not your job, you can stop
