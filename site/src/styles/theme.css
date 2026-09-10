@@ -1,0 +1,71 @@
+/**
+ * Starlight mapped onto Faktion tokens. Neutral gray scale, one red accent.
+ */
+:root {
+	--sl-font: 'Barlow', var(--sl-font-system);
+	--sl-color-accent-low: #3a1414;
+	--sl-color-accent: #f04242;
+	--sl-color-accent-high: #f6a3a3;
+	--sl-color-white: #f5f5f5;
+	--sl-color-gray-1: #ebebeb;
+	--sl-color-gray-2: #d6d6d6;
+	--sl-color-gray-3: #adadad;
+	--sl-color-gray-4: #5c5c5c;
+	--sl-color-gray-5: #292929;
+	--sl-color-gray-6: #1f1f1f;
+	--sl-color-black: #141414;
+	--sl-color-bg: #141414;
+	--sl-color-bg-nav: #1f1f1f;
+	--sl-color-bg-sidebar: #1f1f1f;
+	--sl-color-text-accent: var(--sl-color-accent-high);
+	--sl-color-bg-accent: var(--sl-color-accent);
+}
+
+:root[data-theme='light'] {
+	--sl-color-accent-low: #f8d4d4;
+	--sl-color-accent: #d01111;
+	--sl-color-accent-high: #9c0d0d;
+	--sl-color-white: #141414;
+	--sl-color-gray-1: #1f1f1f;
+	--sl-color-gray-2: #333333;
+	--sl-color-gray-3: #5c5c5c;
+	--sl-color-gray-4: #adadad;
+	--sl-color-gray-5: #d6d6d6;
+	--sl-color-gray-6: #ebebeb;
+	--sl-color-gray-7: #f5f5f5;
+	--sl-color-black: #f5f5f5;
+	--sl-color-bg: #f5f5f5;
+	--sl-color-bg-nav: #ebebeb;
+	--sl-color-bg-sidebar: #f5f5f5;
+	--sl-color-text-accent: var(--sl-color-accent);
+	--sl-color-bg-accent: var(--sl-color-accent);
+}
+
+.site-title {
+	gap: 0.65rem;
+}
+
+.site-title img {
+	height: 1.35rem;
+	width: auto;
+}
+
+.sl-markdown-content :not(pre) > code {
+	border-radius: 0.3rem;
+}
+
+.pagination-links a {
+	border-radius: 0.5rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.sl-link-card,
+	.starlight-aside,
+	.pagination-links a,
+	a {
+		transition:
+			color 180ms cubic-bezier(0.16, 1, 0.3, 1),
+			border-color 180ms cubic-bezier(0.16, 1, 0.3, 1),
+			background-color 180ms cubic-bezier(0.16, 1, 0.3, 1);
+	}
+}

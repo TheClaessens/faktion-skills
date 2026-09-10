@@ -12,27 +12,35 @@ const inventory = loadInventory(PM_PLUGIN_ROOT);
 	manifest at build time.
 </p>
 
-<table>
-	<thead>
-		<tr>
-			<th>Skill</th>
-			<th>Description</th>
-			<th>How it is invoked</th>
-		</tr>
-	</thead>
-	<tbody>
-		{
-			inventory.skills.map((skill) => (
-				<tr>
-					<td>
-						<a href={withSiteBase(skillPageHref(skill))}>
-							<code>{skill.name}</code>
-						</a>
-					</td>
-					<td>{skill.description}</td>
-					<td>{invocationLabel(skill.invocation)}</td>
-				</tr>
-			))
-		}
-	</tbody>
-</table>
+<div class="skills-table">
+	<table>
+		<thead>
+			<tr>
+				<th>Skill</th>
+				<th>Description</th>
+				<th>How it is invoked</th>
+			</tr>
+		</thead>
+		<tbody>
+			{
+				inventory.skills.map((skill) => (
+					<tr>
+						<td>
+							<a href={withSiteBase(skillPageHref(skill))}>
+								<code>{skill.name}</code>
+							</a>
+						</td>
+						<td>{skill.description}</td>
+						<td>{invocationLabel(skill.invocation)}</td>
+					</tr>
+				))
+			}
+		</tbody>
+	</table>
+</div>
+
+<style>
+	.skills-table {
+		overflow-x: auto;
+	}
+</style>

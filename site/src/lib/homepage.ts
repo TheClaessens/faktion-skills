@@ -14,7 +14,7 @@ export type HomeLink = {
 export const identity = {
 	eyebrow: 'Faktion · product managers',
 	title: 'Ticket-writing skills for Faktion PMs',
-	what: 'These skills sit in Claude and turn a request — a vague note, a bug, a voice dump — into a JIRA ticket that meets the house bar.',
+	what: 'These skills sit in Claude and turn a request (a vague note, a bug, a voice dump) into a JIRA ticket that meets the house bar.',
 	who: 'They are for Faktion product managers who write stories and bugs. If that is not your job, stop here.',
 } as const;
 
@@ -36,7 +36,7 @@ export const onward: readonly HomeLink[] = [
 		path: '/how-it-works/',
 		label: 'How it works',
 		blurb:
-			'Front door, grill, draft, push — shown as a captured session, not a reconstructed one.',
+			'Front door, grill, draft, push. Shown as a captured session, not a reconstructed one.',
 	},
 	{
 		path: '/what-it-wont-do/',

@@ -39,6 +39,21 @@ export default defineConfig({
 			description:
 				'Ticket-writing skills for Faktion PMs: grill vague requests, draft against the house bar, and push to JIRA only after you approve.',
 			// English only. Do not add `locales` — a Dutch translation is a later, additive change.
+			logo: {
+				light: './src/assets/brand/faktion-wordmark-on-light.svg',
+				dark: './src/assets/brand/faktion-wordmark-on-dark.svg',
+				alt: 'Faktion',
+				replacesTitle: true,
+			},
+			customCss: [
+				'@fontsource/barlow/latin-400.css',
+				'@fontsource/barlow/latin-500.css',
+				'@fontsource/barlow/latin-600.css',
+				'@fontsource/barlow/latin-700.css',
+				'@fontsource/barlow/latin-ext-400.css',
+				'@fontsource/barlow/latin-ext-600.css',
+				'./src/styles/theme.css',
+			],
 			social: [
 				{
 					icon: 'github',
