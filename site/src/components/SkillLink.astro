@@ -1,0 +1,23 @@
+---
+import { loadInventory } from '../lib/content';
+import { PM_PLUGIN_ROOT } from '../lib/plugin-root';
+import { skillPageHref, withSiteBase } from '../lib/skill-pages';
+
+interface Props {
+	name: string;
+	slash?: boolean;
+}
+
+const { name, slash = false } = Astro.props;
+const skill = loadInventory(PM_PLUGIN_ROOT).skills.find(
+	(entry) => entry.name === name,
+);
+if (!skill) {
+	throw new Error(`Skill link: "${name}" is not in the plugin inventory`);
+}
+
+const href = withSiteBase(skillPageHref(skill));
+const label = slash ? `/${name}` : name;
+---
+
+<a href={href}><code>{label}</code></a>
