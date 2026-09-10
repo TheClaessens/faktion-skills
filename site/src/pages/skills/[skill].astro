@@ -1,0 +1,58 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { loadInventory, type Skill } from '../../lib/content';
+import { PM_PLUGIN_ROOT } from '../../lib/plugin-root';
+import {
+	invocationLabel,
+	skillSourceUrl,
+} from '../../lib/skill-pages';
+import { withSiteBase } from '../../lib/site-path';
+
+export function getStaticPaths() {
+	return loadInventory(PM_PLUGIN_ROOT).skills.map((skill) => ({
+		params: { skill: skill.name },
+		props: { skill },
+	}));
+}
+
+type Props = { skill: Skill };
+
+const { skill } = Astro.props;
+const sourceUrl = skillSourceUrl(skill);
+const howItWorksHref = withSiteBase('/how-it-works/');
+const typedByUser = skill.invocation === 'user-typed';
+---
+
+<StarlightPage
+	frontmatter={{
+		title: skill.name,
+		description: skill.description,
+		editUrl: sourceUrl,
+		tableOfContents: false,
+	}}
+>
+	<p>{skill.description}</p>
+	{
+		typedByUser ? (
+			<p>
+				<strong>{invocationLabel(skill.invocation)}.</strong> You type this
+				name. The agent does not reach for it on its own.
+			</p>
+		) : (
+			<p>
+				<strong>{invocationLabel(skill.invocation)}.</strong> The agent
+				reaches for this skill on its own. You do not type this name.
+			</p>
+		)
+	}
+	<p>
+		<a href={sourceUrl}>Read the {skill.name} source on GitHub</a>
+		{' '}
+		— the instructions the agent follows, in the repository.
+	</p>
+	<p>
+		These pages are reference. The pipeline that uses them is on
+		{' '}
+		<a href={howItWorksHref}>How it works</a>.
+	</p>
+</StarlightPage>

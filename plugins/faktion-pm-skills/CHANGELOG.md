@@ -2,9 +2,13 @@
 
 Kept in [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) shape, versioned per [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-Entries under `## [Unreleased]` are written after each commit, prompted by the hook in `.claude/hooks/`. See [Releasing](README.md#releasing).
+Entries under `## [Unreleased]` are written after each commit, prompted by the hook in `.claude/hooks/`. See [Releasing](../../README.md#releasing).
 
 ## [Unreleased]
+
+### Changed
+
+- The marketplace is added as `TheClaessens/faktion-skills`. The old repository name still redirects.
 
 ## [1.0.0-rc.2] - 2026-09-08
 

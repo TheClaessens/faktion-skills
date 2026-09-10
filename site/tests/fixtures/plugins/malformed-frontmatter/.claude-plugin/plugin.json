@@ -1,0 +1,5 @@
+{
+  "name": "fixture-plugin",
+  "version": "0.0.1",
+  "skills": ["./skills/quiet-brief"]
+}

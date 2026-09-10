@@ -1,0 +1,5 @@
+{
+  "name": "fixture-plugin",
+  "version": "3.2.1",
+  "skills": ["./skills/grill-brief", "./skills/front-door"]
+}

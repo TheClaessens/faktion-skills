@@ -1,0 +1,140 @@
+---
+import {
+	BUG_ANNOTATIONS,
+	loadCapture,
+	renderMarkdown,
+	segmentsWithAnnotations,
+	SHORT_GRILL_ANNOTATIONS,
+	splitGrillCapture,
+	STORY_ANNOTATIONS,
+	type Annotation,
+	type CaptureName,
+} from '../lib/walkthrough';
+
+type GrillCapture = Exclude<CaptureName, 'product'>;
+
+interface Props {
+	capture: GrillCapture;
+	legend?: boolean;
+}
+
+const annotationsByCapture: Record<GrillCapture, readonly Annotation[]> = {
+	'story-grill': STORY_ANNOTATIONS,
+	'short-grill': SHORT_GRILL_ANNOTATIONS,
+	'bug-grill': BUG_ANNOTATIONS,
+};
+
+const { capture, legend = false } = Astro.props;
+const { meta, body } = splitGrillCapture(loadCapture(capture));
+const segments = segmentsWithAnnotations(body, annotationsByCapture[capture]);
+---
+
+{
+	legend && (
+		<p class="walkthrough-legend">
+			<strong>Captured session</strong> is the run. Notes with a topic label
+			are this page calling out a moment. They are not part of what the agent
+			said.
+		</p>
+	)
+}
+
+<div class="capture-meta" set:html={renderMarkdown(meta)} />
+
+<div class="walkthrough">
+	{
+		segments.map((segment) =>
+			segment.kind === 'transcript' ? (
+				<section class="transcript" aria-label="Captured session">
+					<p class="transcript-label">Captured session</p>
+					<div class="transcript-body" set:html={renderMarkdown(segment.markdown)} />
+				</section>
+			) : (
+				<aside class="annotation" aria-label={`Note: ${segment.title}`}>
+					<p class="annotation-label">Note · {segment.title}</p>
+					<div class="annotation-body" set:html={renderMarkdown(segment.body)} />
+				</aside>
+			),
+		)
+	}
+</div>
+
+<style>
+	.walkthrough-legend {
+		margin: 0 0 1rem;
+		font-size: 0.95rem;
+	}
+
+	.capture-meta {
+		margin: 0 0 1.25rem;
+		color: var(--sl-color-gray-2);
+		font-size: 0.95rem;
+	}
+
+	.capture-meta :global(p) {
+		margin: 0;
+	}
+
+	.walkthrough {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		margin: 0 0 2rem;
+	}
+
+	.transcript,
+	.annotation {
+		margin: 0;
+		padding: 0.9rem 1.1rem 1rem;
+		border-radius: 0.35rem;
+	}
+
+	.transcript {
+		border: 1px solid var(--sl-color-gray-5);
+		background: var(--sl-color-gray-6);
+	}
+
+	.annotation {
+		border: 1px solid var(--sl-color-accent-high);
+		background: var(--sl-color-accent-low);
+	}
+
+	.transcript-label,
+	.annotation-label {
+		margin: 0 0 0.65rem;
+		font-size: 0.75rem;
+		font-weight: 650;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+	}
+
+	.transcript-label {
+		color: var(--sl-color-gray-2);
+	}
+
+	.annotation-label {
+		color: var(--sl-color-accent-high);
+	}
+
+	.transcript-body :global(> :first-child),
+	.annotation-body :global(> :first-child) {
+		margin-top: 0;
+	}
+
+	.transcript-body :global(> :last-child),
+	.annotation-body :global(> :last-child) {
+		margin-bottom: 0;
+	}
+
+	.transcript-body :global(h3),
+	.annotation-body :global(h3) {
+		font-size: 1.05rem;
+		margin: 1rem 0 0.5rem;
+	}
+
+	.transcript-body :global(hr) {
+		border: none;
+		border-top: 1px solid var(--sl-color-gray-5);
+		margin: 0.85rem 0;
+	}
+</style>

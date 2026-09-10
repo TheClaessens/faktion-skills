@@ -1,0 +1,65 @@
+---
+title: Install
+description: One path to a working first session — Cowork, no terminal.
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+There is one recommended path. You do not choose between options.
+
+Follow the steps below in Claude. No terminal. The developer route is at the bottom of this page if you already work in Claude Code.
+
+## Install in Cowork
+
+In Claude, open **Customize → Plugins**.
+
+<Steps>
+
+1. **Add marketplace**, then paste this identifier:
+
+   ```
+   TheClaessens/faktion-skills
+   ```
+
+2. Install **faktion-pm-skills** from the list.
+
+3. Sign in to Atlassian when prompted. The tracker connector installs with the plugin. You do not hunt for it separately.
+
+</Steps>
+
+### Updates
+
+On the Plugins page, click **Update** on the marketplace. That pulls the latest plugins from the repository.
+
+## After install, type this
+
+```
+/ask-faktion-pm
+```
+
+Say what you have. That is the only name you type. Everything else runs on its own.
+
+<details>
+<summary>Developer route: Claude Code</summary>
+
+This path is for people who already work in a terminal. If that is not you, stay with the Cowork steps above.
+
+```bash
+npm install -g @anthropic-ai/claude-code
+claude
+/plugin marketplace add TheClaessens/faktion-skills
+/plugin install faktion-pm-skills@faktion
+```
+
+The tracker connector installs with the plugin. Sign in to Atlassian when prompted.
+
+Once installed, type `/ask-faktion-pm`.
+
+**Updates:** refresh the marketplace, then update the plugin:
+
+```
+/plugin marketplace update faktion
+/plugin update faktion-pm-skills@faktion
+```
+
+</details>

@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "faktion-pm-skills",
-      "source": "./",
+      "source": "./plugins/faktion-pm-skills",
       "description": "Ticket-writing skills for PMs: write, review, and test-plan JIRA tickets against the Faktion bar.",
       "category": "product-management",
       "keywords": ["jira", "tickets", "product-management"]

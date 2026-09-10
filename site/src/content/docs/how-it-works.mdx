@@ -1,0 +1,72 @@
+---
+title: How it works
+description: A request travels from the front door through a grill and into a draft, then to JIRA only after you approve it — shown here as a captured session, not a reconstructed one.
+---
+
+import SkillsTable from '../../components/SkillsTable.astro';
+import SkillSources from '../../components/SkillSources.astro';
+import SkillLink from '../../components/SkillLink.astro';
+import AnnotatedCapture from '../../components/AnnotatedCapture.astro';
+import ProductSetup from '../../components/ProductSetup.astro';
+
+A request travels one route: **front door**, **grill**, **draft**, **push**. You type one name. The rest of the skills run on their own. Nothing is written to JIRA until you approve the draft.
+
+The sessions on this page are captured from a real run of those skills against a fictional product. The agent's half is the run, trimmed, not rewritten. The labelled notes are this page pointing at a moment; they are not part of the conversation.
+
+## The route
+
+### Front door
+
+You type <SkillLink name="ask-faktion-pm" slash />. That is the only name you have to remember. It looks at what you brought and routes: a grill for anything that should become a ticket, a review if a ticket already exists and reads thin, a rewrite, a test plan, a batch if you described a whole feature.
+
+Anything that ends in a ticket starts at the grill. A request that is already complete still goes there. The grill is short when you already said everything, so routing there is never the wrong call.
+
+### Grill
+
+<SkillLink name="grill-ticket" /> interviews until the scope is settled. It produces a **brief**, not a ticket. Six branches: persona, trigger, behaviour, boundary, done, relations. A phrase that reads as settled and is not — a smell — becomes a question, not a footnote.
+
+The grill ends when every branch is answered or parked. Then it shows the brief and waits for a yes.
+
+### Draft
+
+<SkillLink name="write-ticket" /> turns the confirmed brief into a story. <SkillLink name="write-bug" /> does the same for a defect, on a different shape. Drafting works from the brief: it does not re-decide the branches, and it carries parked gaps onto the ticket as named open questions. Closing a parked gap at draft time would be inventing the answer you already said you did not know.
+
+### Push
+
+The draft is a formatted preview in the conversation. A push happens only on explicit confirmation — "push", "ship it", "good to go". The sessions below stop at that preview. The capture had no JIRA connector, so nothing was written to a board. The rule does not change when the connector is there: nothing reaches JIRA until you say so.
+
+## Why it will not draft while it is still asking
+
+A visible draft makes the interrogation stop early. The draft looks like progress. The questions do not. If both are in front of the agent, it reaches for the draft, and the questions that would have stopped a developer building the wrong thing never get asked.
+
+So the grill does not draft. It asks, it parks what you cannot answer, it shows a brief, and it waits. The walkthrough below reaches that refusal and then, only after a yes, the ticket.
+
+## A request that is not finished
+
+<ProductSetup />
+
+<AnnotatedCapture capture="story-grill" legend />
+
+## Will this slow me down?
+
+No — not when the request is already complete. Always starting at the grill is the rule that protects the thin requests. The cost on a complete one is a confirming nod, not a fresh interview.
+
+<AnnotatedCapture capture="short-grill" />
+
+## A bug takes a different path
+
+A defect is not a story wearing different words. There is **no persona**. The ticket **does not invent a root cause**. Trigger is the reproduction path; behaviour is expected versus actual. One story walkthrough cannot show that, so this one is a bug.
+
+<AnnotatedCapture capture="bug-grill" />
+
+## The skills
+
+You type one name. Six of the seven skills are model-invoked: you do not type them, and you do not have to remember them. Each name in the table opens a short page for that skill. Those pages are not in the sidebar. The collapsible files under the table are the instructions themselves, readable here.
+
+<SkillsTable />
+
+## The instructions the agent follows
+
+There is no second prompt behind these files. This is what the agent is told to do.
+
+<SkillSources />
