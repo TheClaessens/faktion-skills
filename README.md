@@ -52,18 +52,18 @@ Nothing reaches JIRA without you approving it first.
 
 ## Changing the bar
 
-`skills/ticket-standard/SKILL.md` is the single source of truth for what a good Faktion ticket looks like. Every other skill points at it and none of them restate it, so a change there changes every skill at once. Edit that file, not the writers.
+`plugins/faktion-pm-skills/skills/ticket-standard/SKILL.md` is the single source of truth for what a good Faktion ticket looks like. Every other skill points at it and none of them restate it, so a change there changes every skill at once. Edit that file, not the writers.
 
 ## Releasing
 
-[`CHANGELOG.md`](CHANGELOG.md) is written by hand, by whoever made the change - but not remembered by hand. A `PostToolUse` hook in [`.claude/settings.json`](.claude/settings.json) fires after every `git commit` and asks the agent whether the commit earned an entry, then to amend it into that same commit. Housekeeping earns nothing. The test is whether a PM using the plugin would notice.
+[`CHANGELOG.md`](plugins/faktion-pm-skills/CHANGELOG.md) is written by hand, by whoever made the change - but not remembered by hand. A `PostToolUse` hook in [`.claude/settings.json`](.claude/settings.json) fires after every `git commit` and asks the agent whether the commit earned an entry, then to amend it into that same commit. Housekeeping earns nothing. The test is whether a PM using the plugin would notice.
 
 Entries are written for that PM: *"the grill now pushes back when a ticket is functionally vague"*, not *"feat(smells): add catalogue"*. A changelog that restates commit subjects is a `git log` with worse formatting.
 
 A version lives in three places, and cutting a release means moving all three together:
 
-1. `version` in [`.claude-plugin/plugin.json`](.claude-plugin/plugin.json)
-2. The `## [Unreleased]` heading in `CHANGELOG.md`, renamed to the new version with today's date, and a fresh empty `## [Unreleased]` above it
+1. `version` in [`plugins/faktion-pm-skills/.claude-plugin/plugin.json`](plugins/faktion-pm-skills/.claude-plugin/plugin.json)
+2. The `## [Unreleased]` heading in [`CHANGELOG.md`](plugins/faktion-pm-skills/CHANGELOG.md), renamed to the new version with today's date, and a fresh empty `## [Unreleased]` above it
 3. The git tag - `git tag -a v1.0.0 -m "..."` and `git push --tags`
 
 Which number moves follows from what accumulated under `[Unreleased]`: anything marked **BREAKING** makes it a major, an `### Added` entry makes it a minor, `### Fixed` alone makes it a patch.
