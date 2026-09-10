@@ -1,0 +1,77 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import { loadInventory } from '../lib/content';
+import { PM_PLUGIN_ROOT } from '../lib/plugin-root';
+import {
+	invocationLabel,
+	skillPageHref,
+	withSiteBase,
+} from '../lib/skill-pages';
+
+interface Props {
+	name: string;
+}
+
+const { name } = Astro.props;
+const skill = loadInventory(PM_PLUGIN_ROOT).skills.find(
+	(entry) => entry.name === name,
+);
+if (!skill) {
+	throw new Error(`Skill source: "${name}" is not in the plugin inventory`);
+}
+
+const source = fs.readFileSync(
+	path.join(PM_PLUGIN_ROOT, skill.sourcePath),
+	'utf8',
+);
+const pageHref = withSiteBase(skillPageHref(skill));
+---
+
+<details class="skill-source">
+	<summary>
+		<code>{skill.name}</code>
+		{' '}
+		<span class="skill-source-flag">{invocationLabel(skill.invocation)}</span>
+		{' — read the file'}
+	</summary>
+	<p>
+		This is the file the agent follows. There is no separate hidden prompt.
+		{' '}
+		<a href={pageHref}>Open the {skill.name} page</a>.
+	</p>
+	<pre class="skill-source-body" tabindex="0"><code>{source}</code></pre>
+</details>
+
+<style>
+	.skill-source {
+		margin: 0 0 0.85rem;
+		padding: 0.65rem 0.9rem 0.7rem;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.35rem;
+		background: var(--sl-color-gray-6);
+	}
+
+	.skill-source summary {
+		cursor: pointer;
+		font-weight: 600;
+	}
+
+	.skill-source-flag {
+		font-weight: 500;
+		color: var(--sl-color-gray-2);
+	}
+
+	.skill-source-body {
+		max-height: 28rem;
+		overflow: auto;
+		margin: 0 0 0.4rem;
+		padding: 0.85rem 1rem;
+		border-radius: 0.3rem;
+		background: var(--sl-color-black);
+		color: var(--sl-color-white);
+		font-size: 0.82rem;
+		line-height: 1.45;
+		white-space: pre-wrap;
+	}
+</style>

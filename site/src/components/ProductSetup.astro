@@ -1,0 +1,22 @@
+---
+import { loadCapture, renderMarkdown } from '../lib/walkthrough';
+
+const markdown = loadCapture('product');
+---
+
+<div class="product-setup" set:html={renderMarkdown(markdown)} />
+
+<style>
+	.product-setup :global(> :first-child) {
+		margin-top: 0;
+	}
+
+	.product-setup :global(> :last-child) {
+		margin-bottom: 0;
+	}
+
+	.product-setup :global(h3) {
+		font-size: 1.15rem;
+		margin: 0 0 0.5rem;
+	}
+</style>
