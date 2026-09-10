@@ -29,11 +29,13 @@ describe('loadInventory', () => {
 				name: 'grill-brief',
 				description: 'Interview until the scope is settled.',
 				invocation: 'model-invoked',
+				sourcePath: 'skills/grill-brief/SKILL.md',
 			},
 			{
 				name: 'front-door',
 				description: 'The one name a user types.',
 				invocation: 'user-typed',
+				sourcePath: 'skills/front-door/SKILL.md',
 			},
 		]);
 	});
