@@ -8,7 +8,7 @@ Ticket-writing skills for Faktion PMs. Write stories and bugs, grade tickets aga
 
 No terminal, no install. In Claude, open **Customize → Plugins**:
 
-1. **Add marketplace** → `TheClaessens/faktion-skill-library`
+1. **Add marketplace** → `TheClaessens/faktion-skills`
 2. Install **faktion-pm-skills** from the list
 3. Sign in to Atlassian when prompted - the plugin brings the JIRA connector with it
 
@@ -19,7 +19,7 @@ No terminal, no install. In Claude, open **Customize → Plugins**:
 ```bash
 npm install -g @anthropic-ai/claude-code
 claude
-/plugin marketplace add TheClaessens/faktion-skill-library
+/plugin marketplace add TheClaessens/faktion-skills
 /plugin install faktion-pm-skills@faktion
 # the Atlassian connector installs with the plugin; sign in when prompted
 ```
