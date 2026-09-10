@@ -60,7 +60,6 @@ export default defineConfig({
 						{ label: 'JIRA mechanics', slug: 'reference/jira' },
 					],
 				},
-				{ label: 'Overview', slug: 'overview' },
 			],
 		}),
 	],

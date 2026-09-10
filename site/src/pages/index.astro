@@ -1,18 +1,13 @@
 ---
 /**
  * Custom homepage, outside the Starlight documentation layout.
- * Later visual design fills this route rather than displacing a themed page.
+ * Copy lives in `src/lib/homepage.ts` so a later visual design pass can
+ * restyle this route without re-authoring the orientation.
  */
-function withBase(path: string) {
-	const root = import.meta.env.BASE_URL.replace(/\/$/, '');
-	const suffix = path.startsWith('/') ? path : `/${path}`;
-	return `${root}${suffix}`;
-}
+import { also, command, identity, onward } from '../lib/homepage';
+import { withSiteBase } from '../lib/skill-pages';
 
-const docsHref = withBase('/overview/');
-const installHref = withBase('/install/');
-const barHref = withBase('/the-bar/');
-const faviconHref = withBase('/favicon.svg');
+const faviconHref = withSiteBase('/favicon.svg');
 ---
 
 <!doctype html>
@@ -20,39 +15,55 @@ const faviconHref = withBase('/favicon.svg');
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Faktion PM skills</title>
-		<meta
-			name="description"
-			content="Ticket-writing skills for Faktion PMs. They turn a vague request into a ticket that meets the house bar, and nothing reaches JIRA until you approve it."
-		/>
+		<title>{identity.title}</title>
+		<meta name="description" content={identity.what} />
 		<link rel="icon" href={faviconHref} type="image/svg+xml" />
 	</head>
 	<body>
 		<main>
-			<p class="eyebrow">Faktion · product</p>
-			<h1>Ticket-writing skills for Faktion PMs</h1>
-			<p>
-				These skills sit in Claude and help you turn what you have — a vague
-				request, a bug, a voice note — into a JIRA ticket that meets the house
-				bar. You remember one name: <code>/ask-faktion-pm</code>. Everything else
-				runs on its own.
-			</p>
-			<p>
-				They read the board for context, push back when the functional scope is
-				vague, and park anything you cannot answer as an open question on the
-				ticket. They do not invent scope, and they do not copy requirements off
-				neighbouring tickets. Nothing is pushed until you say so.
-			</p>
-			<p>
-				If you do not write tickets for a living, this is not aimed at you. If
-				you do, install first. The <a href={barHref}>house ticket bar</a> is
-				readable here whether or not you install.
-			</p>
-			<p class="actions">
-				<a class="docs-link" href={installHref}>Install</a>
-				<a class="docs-link-secondary" href={barHref}>Read the ticket bar</a>
-				<a class="docs-link-secondary" href={docsHref}>Read the documentation</a>
-			</p>
+			<header class="identity">
+				<p class="identity__eyebrow">{identity.eyebrow}</p>
+				<h1 class="identity__title">{identity.title}</h1>
+				<p class="identity__what">{identity.what}</p>
+				<p class="identity__who">{identity.who}</p>
+			</header>
+
+			<section class="command" aria-labelledby="command-heading">
+				<h2 id="command-heading" class="command__heading">{command.heading}</h2>
+				<p class="command__value"><code>{command.value}</code></p>
+				<p class="command__note">{command.note}</p>
+			</section>
+
+			<nav class="onward" aria-label="Start here">
+				<ul class="onward__list">
+					{
+						onward.map((link) => (
+							<li>
+								<a class="onward__link" href={withSiteBase(link.path)}>
+									<span class="onward__label">{link.label}</span>
+									<span class="onward__blurb">{link.blurb}</span>
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</nav>
+
+			<nav class="also" aria-labelledby="also-heading">
+				<h2 id="also-heading" class="also__heading">{also.heading}</h2>
+				<ul class="also__list">
+					{
+						also.links.map((link) => (
+							<li>
+								<a class="also__link" href={withSiteBase(link.path)}>
+									<span class="also__label">{link.label}</span>
+									<span class="also__blurb">{link.blurb}</span>
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</nav>
 		</main>
 	</body>
 </html>
@@ -65,6 +76,7 @@ const faviconHref = withBase('/favicon.svg');
 		--muted: light-dark(#57534e, #c4b8ab);
 		--accent: light-dark(#1d4ed8, #93c5fd);
 		--code-bg: light-dark(#ece8e3, #2a2724);
+		--line: light-dark(#d6d0c8, #3a3530);
 	}
 
 	* {
@@ -95,7 +107,11 @@ const faviconHref = withBase('/favicon.svg');
 		padding: 2.5rem 1.25rem 4rem;
 	}
 
-	.eyebrow {
+	.identity {
+		margin-bottom: 2rem;
+	}
+
+	.identity__eyebrow {
 		margin: 0 0 0.75rem;
 		font-size: 0.8125rem;
 		letter-spacing: 0.06em;
@@ -103,63 +119,129 @@ const faviconHref = withBase('/favicon.svg');
 		color: var(--muted);
 	}
 
-	h1 {
+	.identity__title {
 		margin: 0 0 1rem;
 		font-size: clamp(1.75rem, 5vw, 2.25rem);
 		line-height: 1.2;
 		font-weight: 650;
 	}
 
-	p {
+	.identity__what,
+	.identity__who,
+	.command__note {
 		margin: 0 0 1rem;
 		font-size: 1.0625rem;
 	}
 
-	code {
+	.identity__who {
+		color: var(--muted);
+	}
+
+	.command {
+		margin: 0 0 2rem;
+		padding: 1.25rem 0;
+		border-top: 1px solid var(--line);
+		border-bottom: 1px solid var(--line);
+	}
+
+	.command__heading,
+	.also__heading {
+		margin: 0 0 0.75rem;
+		font-size: 0.8125rem;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		font-weight: 650;
+		color: var(--muted);
+	}
+
+	.command__value {
+		margin: 0 0 0.75rem;
+	}
+
+	.command__value code {
 		font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-		font-size: 0.92em;
+		font-size: clamp(1.125rem, 4vw, 1.5rem);
 		background: var(--code-bg);
-		padding: 0.1em 0.35em;
+		padding: 0.2em 0.45em;
 		border-radius: 0.25rem;
+		overflow-wrap: anywhere;
 	}
 
-	.actions {
+	.command__note {
+		margin-bottom: 0;
+	}
+
+	.onward__list,
+	.also__list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: 0;
+	}
+
+	.onward__list li,
+	.also__list li {
+		border-bottom: 1px solid var(--line);
+	}
+
+	.onward__list li:last-child,
+	.also__list li:last-child {
+		border-bottom: none;
+	}
+
+	.onward__link,
+	.also__link {
 		display: flex;
-		flex-wrap: wrap;
-		gap: 0.75rem;
-		align-items: center;
-		margin-top: 0.5rem;
-	}
-
-	.docs-link,
-	.docs-link-secondary {
-		display: inline-block;
-		padding: 0.7rem 1rem;
-		font-weight: 600;
+		flex-direction: column;
+		gap: 0.2rem;
+		padding: 0.85rem 0;
+		min-height: 2.75rem;
+		color: inherit;
 		text-decoration: none;
-		border-radius: 0.4rem;
 	}
 
-	.docs-link {
-		color: var(--bg);
-		background: var(--fg);
+	.onward__label,
+	.also__label {
+		font-weight: 650;
+		color: var(--accent);
 	}
 
-	.docs-link-secondary {
-		color: var(--fg);
-		background: transparent;
-		border: 1px solid var(--fg);
+	.onward__blurb,
+	.also__blurb {
+		color: var(--muted);
+		font-size: 0.95rem;
 	}
 
-	.docs-link:focus-visible,
-	.docs-link-secondary:focus-visible {
+	.onward__link:focus-visible,
+	.also__link:focus-visible {
 		outline: 3px solid var(--accent);
 		outline-offset: 3px;
+	}
+
+	.also {
+		margin-top: 2rem;
 	}
 
 	@media (min-width: 40rem) {
 		main {
 			padding-top: 4.5rem;
+		}
+
+		.onward__list {
+			grid-template-columns: 1fr 1fr;
+			gap: 1rem 1.5rem;
+		}
+
+		.onward__list li {
+			border-bottom: none;
+		}
+
+		.onward__link {
+			border: 1px solid var(--line);
+			border-radius: 0.4rem;
+			padding: 1rem;
+			min-height: 100%;
 		}
 	}
 </style>
