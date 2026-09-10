@@ -1,0 +1,108 @@
+---
+interface Props {
+	value: string;
+}
+
+const { value } = Astro.props;
+---
+
+<div class="copy-command">
+	<code class="copy-command__value">{value}</code>
+	<button type="button" class="copy-command__button" data-copy={value}>Copy</button>
+	<p class="copy-command__status" data-copy-status aria-live="polite"></p>
+</div>
+
+<script>
+	function bindCopy(root: ParentNode) {
+		const button = root.querySelector<HTMLButtonElement>('[data-copy]');
+		const status = root.querySelector<HTMLElement>('[data-copy-status]');
+		if (!button || !status) {
+			return;
+		}
+		button.addEventListener('click', async () => {
+			const value = button.dataset.copy ?? '';
+			try {
+				await navigator.clipboard.writeText(value);
+				status.textContent = 'Copied';
+			} catch {
+				status.textContent = 'Copy failed';
+			}
+			window.setTimeout(() => {
+				status.textContent = '';
+			}, 1600);
+		});
+	}
+
+	bindCopy(document);
+	document.addEventListener('astro:page-load', () => bindCopy(document));
+</script>
+
+<style>
+	.copy-command {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: 0.75rem 1rem;
+	}
+
+	.copy-command__value {
+		font-family: var(--font-mono);
+		font-size: clamp(1.25rem, 4vw, 1.7rem);
+		font-weight: 600;
+		letter-spacing: -0.03em;
+		line-height: 1.2;
+		overflow-wrap: anywhere;
+		background: transparent;
+		padding: 0;
+		color: var(--accent);
+	}
+
+	.copy-command__button {
+		appearance: none;
+		border: 1px solid var(--accent);
+		background: var(--accent);
+		color: var(--on-accent);
+		font: inherit;
+		font-size: 0.9375rem;
+		font-weight: 600;
+		padding: 0.45rem 0.95rem;
+		border-radius: var(--radius);
+		min-height: 2.75rem;
+		cursor: pointer;
+		white-space: nowrap;
+	}
+
+	.copy-command__button:hover {
+		filter: brightness(1.08);
+	}
+
+	.copy-command__button:active {
+		transform: scale(0.98);
+	}
+
+	.copy-command__button:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 3px;
+	}
+
+	.copy-command__status {
+		margin: 0;
+		font-size: 0.875rem;
+		color: var(--muted);
+		min-height: 1.2em;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.copy-command__button {
+			transition:
+				filter 180ms var(--ease),
+				transform 180ms var(--ease);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.copy-command__button:active {
+			transform: none;
+		}
+	}
+</style>

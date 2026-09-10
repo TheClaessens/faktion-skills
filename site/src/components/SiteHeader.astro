@@ -1,0 +1,66 @@
+---
+import { withSiteBase } from '../lib/site-path';
+import Wordmark from './Wordmark.astro';
+
+const homeHref = withSiteBase('/');
+---
+
+<a class="skip-link" href="#content">Skip to content</a>
+<header class="site-bar">
+	<a class="site-bar__brand" href={homeHref} aria-current="page">
+		<Wordmark />
+		<span class="visually-hidden">Faktion skills</span>
+	</a>
+</header>
+
+<style>
+	.skip-link {
+		position: absolute;
+		left: 0.75rem;
+		top: -4rem;
+		z-index: 40;
+		padding: 0.5rem 0.75rem;
+		background: var(--accent);
+		color: var(--on-accent);
+		font-weight: 600;
+		text-decoration: none;
+		border-radius: var(--radius);
+	}
+
+	.skip-link:focus {
+		top: 0.5rem;
+	}
+
+	.site-bar {
+		display: flex;
+		align-items: center;
+		height: var(--nav-height);
+		max-height: 80px;
+		padding: 0 1.25rem;
+		border-bottom: 1px solid var(--line);
+		background: var(--paper);
+	}
+
+	.site-bar__brand {
+		display: inline-flex;
+		align-items: center;
+		color: var(--ink);
+	}
+
+	.site-bar__brand :global(.wordmark) {
+		height: 1.35rem;
+		width: auto;
+	}
+
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+</style>

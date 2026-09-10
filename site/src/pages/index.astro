@@ -1,9 +1,17 @@
 ---
 /**
  * Custom homepage, outside the Starlight documentation layout.
- * Copy lives in `src/lib/homepage.ts` so a later visual design pass can
- * restyle this route without re-authoring the orientation.
+ * Copy lives in `src/lib/homepage.ts`.
  */
+import '@fontsource/barlow/latin-400.css';
+import '@fontsource/barlow/latin-500.css';
+import '@fontsource/barlow/latin-600.css';
+import '@fontsource/barlow/latin-700.css';
+import '@fontsource/barlow/latin-ext-400.css';
+import '@fontsource/barlow/latin-ext-600.css';
+import '../styles/tokens.css';
+import CopyCommand from '../components/CopyCommand.astro';
+import SiteHeader from '../components/SiteHeader.astro';
 import { command, identity, onward, secondaryLinks } from '../lib/homepage';
 import { withSiteBase } from '../lib/site-path';
 
@@ -17,10 +25,26 @@ const faviconHref = withSiteBase('/favicon.svg');
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>{identity.title}</title>
 		<meta name="description" content={identity.what} />
+		<meta name="theme-color" content="#f5f5f5" media="(prefers-color-scheme: light)" />
+		<meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)" />
 		<link rel="icon" href={faviconHref} type="image/svg+xml" />
+		<script is:inline>
+			(function () {
+				var stored =
+					typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+				var theme =
+					stored === 'light' || stored === 'dark'
+						? stored
+						: window.matchMedia('(prefers-color-scheme: light)').matches
+							? 'light'
+							: 'dark';
+				document.documentElement.dataset.theme = theme;
+			})();
+		</script>
 	</head>
 	<body>
-		<main>
+		<SiteHeader />
+		<main id="content">
 			<header class="identity">
 				<p class="identity__eyebrow">{identity.eyebrow}</p>
 				<h1 class="identity__title">{identity.title}</h1>
@@ -30,7 +54,7 @@ const faviconHref = withSiteBase('/favicon.svg');
 
 			<section class="command" aria-labelledby="command-heading">
 				<h2 id="command-heading" class="command__heading">{command.heading}</h2>
-				<p class="command__value"><code>{command.value}</code></p>
+				<CopyCommand value={command.value} />
 				<p class="command__note">{command.note}</p>
 			</section>
 
@@ -69,42 +93,29 @@ const faviconHref = withSiteBase('/favicon.svg');
 </html>
 
 <style>
-	:root {
-		color-scheme: light dark;
-		--bg: light-dark(#f7f5f2, #16151a);
-		--fg: light-dark(#1c1917, #f4f0ea);
-		--muted: light-dark(#57534e, #c4b8ab);
-		--accent: light-dark(#1d4ed8, #93c5fd);
-		--code-bg: light-dark(#ece8e3, #2a2724);
-		--line: light-dark(#d6d0c8, #3a3530);
-	}
-
 	* {
 		box-sizing: border-box;
 	}
 
 	html {
 		font-size: 100%;
+		color-scheme: light dark;
+		background: var(--paper);
 	}
 
 	body {
 		margin: 0;
-		min-height: 100vh;
-		background: var(--bg);
-		color: var(--fg);
-		font-family:
-			ui-sans-serif,
-			system-ui,
-			-apple-system,
-			Segoe UI,
-			sans-serif;
+		min-height: 100dvh;
+		background: var(--paper);
+		color: var(--ink);
+		font-family: var(--font-sans);
 		line-height: 1.55;
 	}
 
 	main {
-		max-width: 40rem;
+		max-width: 42rem;
 		margin: 0 auto;
-		padding: 2.5rem 1.25rem 4rem;
+		padding: 1.75rem 1.25rem 4rem;
 	}
 
 	.identity {
@@ -112,18 +123,19 @@ const faviconHref = withSiteBase('/favicon.svg');
 	}
 
 	.identity__eyebrow {
-		margin: 0 0 0.75rem;
-		font-size: 0.8125rem;
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
+		margin: 0 0 0.65rem;
+		font-size: 0.9375rem;
+		font-weight: 500;
 		color: var(--muted);
 	}
 
 	.identity__title {
 		margin: 0 0 1rem;
-		font-size: clamp(1.75rem, 5vw, 2.25rem);
-		line-height: 1.2;
-		font-weight: 650;
+		font-size: clamp(1.75rem, 5vw, 2.4rem);
+		line-height: 1.12;
+		letter-spacing: -0.035em;
+		font-weight: 700;
+		overflow-wrap: anywhere;
 	}
 
 	.identity__what,
@@ -139,36 +151,23 @@ const faviconHref = withSiteBase('/favicon.svg');
 
 	.command {
 		margin: 0 0 2rem;
-		padding: 1.25rem 0;
-		border-top: 1px solid var(--line);
-		border-bottom: 1px solid var(--line);
+		padding: 1.25rem 0 1.25rem 1rem;
+		border-left: 3px solid var(--accent);
+		border-top: none;
+		border-bottom: none;
 	}
 
 	.command__heading,
 	.also__heading {
 		margin: 0 0 0.75rem;
-		font-size: 0.8125rem;
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-		font-weight: 650;
-		color: var(--muted);
-	}
-
-	.command__value {
-		margin: 0 0 0.75rem;
-	}
-
-	.command__value code {
-		font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-		font-size: clamp(1.125rem, 4vw, 1.5rem);
-		background: var(--code-bg);
-		padding: 0.2em 0.45em;
-		border-radius: 0.25rem;
-		overflow-wrap: anywhere;
+		font-size: 1rem;
+		font-weight: 600;
+		color: var(--ink);
 	}
 
 	.command__note {
-		margin-bottom: 0;
+		margin: 0.85rem 0 0;
+		color: var(--muted);
 	}
 
 	.onward__list,
@@ -203,7 +202,7 @@ const faviconHref = withSiteBase('/favicon.svg');
 
 	.onward__label,
 	.also__label {
-		font-weight: 650;
+		font-weight: 600;
 		color: var(--accent);
 	}
 
@@ -215,7 +214,7 @@ const faviconHref = withSiteBase('/favicon.svg');
 
 	.onward__link:focus-visible,
 	.also__link:focus-visible {
-		outline: 3px solid var(--accent);
+		outline: 2px solid var(--accent);
 		outline-offset: 3px;
 	}
 
@@ -225,7 +224,12 @@ const faviconHref = withSiteBase('/favicon.svg');
 
 	@media (min-width: 40rem) {
 		main {
-			padding-top: 4.5rem;
+			padding: 2rem 1.75rem 5rem;
+		}
+
+		.identity__title {
+			max-width: 18ch;
+			text-wrap: balance;
 		}
 
 		.onward__list {
@@ -239,9 +243,74 @@ const faviconHref = withSiteBase('/favicon.svg');
 
 		.onward__link {
 			border: 1px solid var(--line);
-			border-radius: 0.4rem;
+			border-radius: var(--radius);
 			padding: 1rem;
 			min-height: 100%;
+			background: var(--paper-raised);
+		}
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.identity,
+		.command,
+		.onward,
+		.also {
+			animation: rise 0.7s var(--ease) both;
+		}
+
+		.command {
+			animation-delay: 80ms;
+		}
+
+		.onward {
+			animation-delay: 140ms;
+		}
+
+		.also {
+			animation-delay: 200ms;
+		}
+
+		.onward__label,
+		.also__label,
+		.onward__link,
+		.also__link {
+			transition:
+				color 180ms var(--ease),
+				border-color 180ms var(--ease),
+				transform 180ms var(--ease),
+				background-color 180ms var(--ease);
+		}
+
+		.onward__link:hover,
+		.also__link:hover {
+			transform: translateY(-1px);
+		}
+
+		.onward__link:hover {
+			border-color: var(--accent);
+		}
+
+		.onward__link:active,
+		.also__link:active {
+			transform: scale(0.98);
+		}
+	}
+
+	@keyframes rise {
+		from {
+			opacity: 0;
+			transform: translateY(10px);
+		}
+
+		to {
+			opacity: 1;
+			transform: none;
+		}
+	}
+
+	@media (max-width: 39.99rem) {
+		main {
+			padding-inline: 1rem;
 		}
 	}
 </style>

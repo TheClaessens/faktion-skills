@@ -1,0 +1,60 @@
+/**
+ * Faktion brand tokens for the docs site.
+ * Extracted from faktion.com: Barlow, #d01111 / #f04242, #141414, #f5f5f5.
+ */
+:root {
+	--font-sans: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	--font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	--radius: 0.5rem;
+	--ease: cubic-bezier(0.16, 1, 0.3, 1);
+	--nav-height: 4rem;
+	--z-header: 20;
+
+	--paper: #f5f5f5;
+	--paper-raised: #ebebeb;
+	--ink: #141414;
+	--body: #333333;
+	--muted: #5c5c5c;
+	--accent: #d01111;
+	--on-accent: #f5f5f5;
+	--line: #d6d6d6;
+	--code: #ebebeb;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme='light']) {
+		--paper: #141414;
+		--paper-raised: #1f1f1f;
+		--ink: #ebebeb;
+		--body: #d6d6d6;
+		--muted: #adadad;
+		--accent: #f04242;
+		--on-accent: #141414;
+		--line: #292929;
+		--code: #1f1f1f;
+	}
+}
+
+:root[data-theme='dark'] {
+	--paper: #141414;
+	--paper-raised: #1f1f1f;
+	--ink: #ebebeb;
+	--body: #d6d6d6;
+	--muted: #adadad;
+	--accent: #f04242;
+	--on-accent: #141414;
+	--line: #292929;
+	--code: #1f1f1f;
+}
+
+:root[data-theme='light'] {
+	--paper: #f5f5f5;
+	--paper-raised: #ebebeb;
+	--ink: #141414;
+	--body: #333333;
+	--muted: #5c5c5c;
+	--accent: #d01111;
+	--on-accent: #f5f5f5;
+	--line: #d6d6d6;
+	--code: #ebebeb;
+}

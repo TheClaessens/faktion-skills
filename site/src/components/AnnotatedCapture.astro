@@ -86,7 +86,7 @@ const segments = segmentsWithAnnotations(body, annotationsByCapture[capture]);
 	.annotation {
 		margin: 0;
 		padding: 0.9rem 1.1rem 1rem;
-		border-radius: 0.35rem;
+		border-radius: var(--radius, 0.5rem);
 	}
 
 	.transcript {
@@ -102,10 +102,8 @@ const segments = segmentsWithAnnotations(body, annotationsByCapture[capture]);
 	.transcript-label,
 	.annotation-label {
 		margin: 0 0 0.65rem;
-		font-size: 0.75rem;
-		font-weight: 650;
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
+		font-size: 0.8125rem;
+		font-weight: 600;
 	}
 
 	.transcript-label {
