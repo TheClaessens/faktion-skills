@@ -13,12 +13,13 @@ orientation surface. These pages are the reference around it.
 
 ## What is here today
 
-This overview exists so the documentation navigation works. [Install](./install.mdx)
-is the first page to follow. Later pages will cover how the pipeline runs, the
-house ticket bar, the catalogue of functional-vagueness smells, and explicit
-guarantees about what the tool will not do.
+This overview exists so the documentation navigation works. [Install](../install/)
+is the first page to follow. [What it won't do](../what-it-wont-do/) is the
+guarantees a live board needs before you install. Later pages will cover how
+the pipeline runs, the house ticket bar, and the catalogue of functional-vagueness
+smells.
 
-The current [skill inventory](how-it-works.md) is generated from the plugin
+The current [skill inventory](../how-it-works/) is generated from the plugin
 manifest. The version shown there is the version in that file, not a number
 typed into the site.
 

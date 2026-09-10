@@ -28,6 +28,7 @@ export default defineConfig({
 			sidebar: [
 				{ label: 'Install', slug: 'install' },
 				{ label: 'How it works', slug: 'how-it-works' },
+				{ label: "What it won't do", slug: 'what-it-wont-do' },
 				{ label: 'Overview', slug: 'overview' },
 			],
 		}),
