@@ -5,6 +5,7 @@ import path from 'node:path';
  * Capture files live under `site/src/content/walkthrough/`. Site scripts
  * (`npm run build`, `npm test`) run with `site/` as cwd. Do not resolve from
  * `import.meta.url`: the Astro prerender bundle no longer sits next to source.
+ * Unit tests pass a fixture directory as `fromDir` and must not use this default.
  */
 const WALKTHROUGH_DIR = path.resolve(process.cwd(), 'src/content/walkthrough');
 
@@ -21,8 +22,11 @@ export type Segment =
 	| { kind: 'transcript'; markdown: string }
 	| { kind: 'annotation'; title: string; body: string };
 
-export function loadCapture(name: CaptureName): string {
-	const file = path.join(WALKTHROUGH_DIR, `${name}.md`);
+export function loadCapture(
+	name: CaptureName,
+	fromDir: string = WALKTHROUGH_DIR,
+): string {
+	const file = path.join(fromDir, `${name}.md`);
 	if (!fs.existsSync(file)) {
 		throw new Error(`Walkthrough capture "${name}" is missing from disk`);
 	}

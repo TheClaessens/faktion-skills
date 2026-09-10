@@ -76,6 +76,14 @@ export function loadInventory(pluginRoot: string): Inventory {
 	return inventorySchema.parse({ version: manifest.version, skills });
 }
 
+export function requireSkill(pluginRoot: string, name: string): Skill {
+	const skill = loadInventory(pluginRoot).skills.find((entry) => entry.name === name);
+	if (!skill) {
+		throw new Error(`Skill "${name}" is not in the plugin inventory`);
+	}
+	return skill;
+}
+
 export type TransformContext = {
 	sourcePath: string;
 	published: Readonly<Record<string, string>>;
@@ -139,14 +147,28 @@ function toPosix(filePath: string): string {
 	return filePath.split(path.sep).join('/');
 }
 
-function parseFrontmatter(raw: string): Record<string, unknown> {
-	const match = raw.match(/^---\n([\s\S]*?)\n---(?:\n|$)/);
+const YAML_FRONTMATTER = /^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/;
+
+/** Split a leading YAML fence from the rest of a markdown file. */
+export function splitYamlFrontmatter(source: string): {
+	yaml: string | undefined;
+	body: string;
+} {
+	const match = source.match(YAML_FRONTMATTER);
 	if (!match) {
+		return { yaml: undefined, body: source };
+	}
+	return { yaml: match[1], body: source.slice(match[0].length) };
+}
+
+function parseFrontmatter(raw: string): Record<string, unknown> {
+	const { yaml } = splitYamlFrontmatter(raw);
+	if (yaml === undefined) {
 		return {};
 	}
 
 	const data: Record<string, unknown> = {};
-	for (const line of match[1].split('\n')) {
+	for (const line of yaml.split(/\r?\n/)) {
 		if (line.trim() === '') {
 			continue;
 		}

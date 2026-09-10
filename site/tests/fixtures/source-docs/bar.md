@@ -13,3 +13,5 @@ The single source of truth for what a good ticket looks like here.
 Write only what the requester actually described.
 
 See [`write-bug`](../write-bug/SKILL.md) for bugs.
+
+See [`secret-notes`](secret-notes.md) before guessing.

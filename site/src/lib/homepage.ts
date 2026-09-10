@@ -51,7 +51,7 @@ export const onward: readonly HomeLink[] = [
 ];
 
 /** Remaining docs routes. Skills are reached from How it works. */
-export const also = {
+export const secondaryLinks = {
 	heading: 'Also here',
 	links: [
 		{

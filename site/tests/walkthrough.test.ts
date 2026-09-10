@@ -1,3 +1,5 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import {
 	BUG_ANNOTATIONS,
@@ -8,6 +10,12 @@ import {
 	STORY_ANNOTATIONS,
 	type Annotation,
 } from '../src/lib/walkthrough';
+
+const fixtures = path.join(
+	fileURLToPath(new URL('.', import.meta.url)),
+	'fixtures',
+	'walkthrough',
+);
 
 describe('walkthrough annotations', () => {
 	it('inserts a note after the block that contains the anchor, without rewriting the transcript', () => {
@@ -63,7 +71,7 @@ describe('captured transcripts', () => {
 		] as const;
 
 		for (const [name, annotations] of cases) {
-			const { body } = splitGrillCapture(loadCapture(name));
+			const { body } = splitGrillCapture(loadCapture(name, fixtures));
 			const segments = segmentsWithAnnotations(body, annotations);
 			const titles = segments
 				.filter((segment) => segment.kind === 'annotation')

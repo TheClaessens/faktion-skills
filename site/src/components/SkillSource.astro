@@ -1,25 +1,17 @@
 ---
 import fs from 'node:fs';
 import path from 'node:path';
-import { loadInventory } from '../lib/content';
+import { requireSkill } from '../lib/content';
 import { PM_PLUGIN_ROOT } from '../lib/plugin-root';
-import {
-	invocationLabel,
-	skillPageHref,
-	withSiteBase,
-} from '../lib/skill-pages';
+import { invocationLabel, skillPageHref } from '../lib/skill-pages';
+import { withSiteBase } from '../lib/site-path';
 
 interface Props {
 	name: string;
 }
 
 const { name } = Astro.props;
-const skill = loadInventory(PM_PLUGIN_ROOT).skills.find(
-	(entry) => entry.name === name,
-);
-if (!skill) {
-	throw new Error(`Skill source: "${name}" is not in the plugin inventory`);
-}
+const skill = requireSkill(PM_PLUGIN_ROOT, name);
 
 const source = fs.readFileSync(
 	path.join(PM_PLUGIN_ROOT, skill.sourcePath),

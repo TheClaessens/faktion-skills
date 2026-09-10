@@ -26,6 +26,12 @@ const barPage: SourcePage = SOURCE_PAGES.find(
 	(page) => page.slug === 'the-bar',
 )!;
 
+const inventorySkills = [
+	{ name: 'ticket-standard', sourcePath: 'skills/ticket-standard/SKILL.md' },
+	{ name: 'write-bug', sourcePath: 'skills/write-bug/SKILL.md' },
+	{ name: 'review-ticket', sourcePath: 'skills/review-ticket/SKILL.md' },
+] as const;
+
 describe('publishedRoutes', () => {
 	it('maps every source-derived page onto a site route', () => {
 		expect(publishedRoutes('/faktion-skills')).toEqual({
@@ -45,10 +51,24 @@ describe('publishedRoutes', () => {
 			);
 		}
 	});
+
+	it('maps inventory skill files onto their skill pages, without displacing source pages', () => {
+		const published = publishedRoutes('/faktion-skills', inventorySkills);
+
+		expect(published['skills/write-bug/SKILL.md']).toBe(
+			'/faktion-skills/skills/write-bug/',
+		);
+		expect(published['skills/review-ticket/SKILL.md']).toBe(
+			'/faktion-skills/skills/review-ticket/',
+		);
+		expect(published['skills/ticket-standard/SKILL.md']).toBe(
+			'/faktion-skills/the-bar/',
+		);
+	});
 });
 
 describe('renderSourcePage', () => {
-	const published = publishedRoutes('/faktion-skills');
+	const published = publishedRoutes('/faktion-skills', inventorySkills);
 
 	it('renders from source through the transform, not as a restatement', () => {
 		const result = renderSourcePage(fixture('bar.md'), barPage, published);
@@ -57,9 +77,11 @@ describe('renderSourcePage', () => {
 		expect(result).toContain('Write only what the requester actually described.');
 		expect(result).toContain('[`smells.md`](/faktion-skills/smells/)');
 		expect(result).toContain('[`intake.md`](/faktion-skills/reference/intake/)');
+		expect(result).toContain('[`write-bug`](/faktion-skills/skills/write-bug/)');
 		expect(result).toContain('Applies when the input is conversational rather than a written spec.');
 		expect(result).not.toContain('](smells.md)');
 		expect(result).not.toContain('](intake.md)');
+		expect(result).not.toContain('](../write-bug/SKILL.md)');
 	});
 
 	it('adds the Dutch-input note only on the bar', () => {
@@ -76,8 +98,8 @@ describe('renderSourcePage', () => {
 	it('unwraps a relative link to a document that is not published', () => {
 		const result = renderSourcePage(fixture('bar.md'), barPage, published);
 
-		expect(result).toContain('See `write-bug` for bugs.');
-		expect(result).not.toContain('](../write-bug/SKILL.md)');
+		expect(result).toContain('See `secret-notes` before guessing.');
+		expect(result).not.toContain('](secret-notes.md)');
 	});
 
 	it('strips source frontmatter and the leading heading, and does not rewrite the substance', () => {
@@ -109,7 +131,16 @@ describe('writeSourcePages', () => {
 
 			const bar = fs.readFileSync(path.join(docsDir, 'the-bar.md'), 'utf8');
 			expect(bar).toContain('[`smells.md`](/faktion-skills/smells/)');
+			expect(bar).toContain('[`write-bug`](/faktion-skills/skills/write-bug/)');
 			expect(bar).toContain('Requests may be written in Dutch');
+
+			const priorArt = fs.readFileSync(
+				path.join(docsDir, 'reference/prior-art.md'),
+				'utf8',
+			);
+			expect(priorArt).toContain(
+				'[`review-ticket`](/faktion-skills/skills/review-ticket/)',
+			);
 		} finally {
 			fs.rmSync(docsDir, { recursive: true, force: true });
 		}

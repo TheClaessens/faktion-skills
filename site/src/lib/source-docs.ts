@@ -1,6 +1,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { transformDocument } from './content';
+import {
+	loadInventory,
+	splitYamlFrontmatter,
+	transformDocument,
+	type Skill,
+} from './content';
+import { skillPageHref } from './skill-pages';
 
 /**
  * Public pathname prefix. Keep in lockstep with `base` in astro.config.mjs.
@@ -59,11 +65,20 @@ export const SOURCE_PAGES: readonly SourcePage[] = [
 
 export function publishedRoutes(
 	base: string = SITE_BASE,
+	skills: readonly Pick<Skill, 'name' | 'sourcePath'>[] = [],
 ): Record<string, string> {
 	const prefix = base.replace(/\/$/, '');
-	return Object.fromEntries(
-		SOURCE_PAGES.map((page) => [page.sourcePath, `${prefix}/${page.slug}/`]),
-	);
+	const published: Record<string, string> = {};
+	for (const page of SOURCE_PAGES) {
+		published[page.sourcePath] = `${prefix}/${page.slug}/`;
+	}
+	for (const skill of skills) {
+		if (published[skill.sourcePath] !== undefined) {
+			continue;
+		}
+		published[skill.sourcePath] = `${prefix}${skillPageHref(skill)}`;
+	}
+	return published;
 }
 
 export function renderSourcePage(
@@ -71,7 +86,7 @@ export function renderSourcePage(
 	page: SourcePage,
 	published: Readonly<Record<string, string>>,
 ): string {
-	const transformed = transformDocument(stripYamlFrontmatter(source), {
+	const transformed = transformDocument(splitYamlFrontmatter(source).body, {
 		sourcePath: page.sourcePath,
 		published,
 	});
@@ -98,7 +113,10 @@ export function writeSourcePages(options: {
 	docsDir: string;
 	siteBase?: string;
 }): void {
-	const published = publishedRoutes(options.siteBase ?? SITE_BASE);
+	const published = publishedRoutes(
+		options.siteBase ?? SITE_BASE,
+		loadInventory(options.pluginRoot).skills,
+	);
 	for (const page of SOURCE_PAGES) {
 		const abs = path.join(options.pluginRoot, ...page.sourcePath.split('/'));
 		if (!fs.existsSync(abs)) {
@@ -113,10 +131,6 @@ export function writeSourcePages(options: {
 		fs.mkdirSync(path.dirname(outPath), { recursive: true });
 		fs.writeFileSync(outPath, markdown);
 	}
-}
-
-function stripYamlFrontmatter(source: string): string {
-	return source.replace(/^---\r?\n[\s\S]*?\r?\n---(?:\r?\n|$)/, '');
 }
 
 function takeLeadingH1(source: string): { title: string | undefined; body: string } {

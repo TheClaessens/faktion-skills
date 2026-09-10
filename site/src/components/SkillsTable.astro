@@ -1,11 +1,8 @@
 ---
 import { loadInventory } from '../lib/content';
 import { PM_PLUGIN_ROOT } from '../lib/plugin-root';
-import {
-	invocationLabel,
-	skillPageHref,
-	withSiteBase,
-} from '../lib/skill-pages';
+import { invocationLabel, skillPageHref } from '../lib/skill-pages';
+import { withSiteBase } from '../lib/site-path';
 
 const inventory = loadInventory(PM_PLUGIN_ROOT);
 ---

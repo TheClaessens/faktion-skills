@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import { loadInventory, transformDocument } from '../src/lib/content';
+import { loadInventory, requireSkill, transformDocument } from '../src/lib/content';
 
 const fixtures = path.join(fileURLToPath(new URL('.', import.meta.url)), 'fixtures');
 
@@ -55,6 +55,18 @@ describe('loadInventory', () => {
 	it('fails the load when skill frontmatter is missing a required field, naming the file', () => {
 		expect(() => loadInventory(pluginFixture('malformed-frontmatter'))).toThrow(
 			'Skill file "skills/quiet-brief/SKILL.md" has missing or malformed frontmatter',
+		);
+	});
+
+	it('returns the named skill from the inventory', () => {
+		expect(requireSkill(pluginFixture('complete'), 'front-door').name).toBe(
+			'front-door',
+		);
+	});
+
+	it('fails when the named skill is not in the inventory', () => {
+		expect(() => requireSkill(pluginFixture('complete'), 'ghost-brief')).toThrow(
+			'Skill "ghost-brief" is not in the plugin inventory',
 		);
 	});
 });

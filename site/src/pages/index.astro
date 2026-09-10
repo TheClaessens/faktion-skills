@@ -4,8 +4,8 @@
  * Copy lives in `src/lib/homepage.ts` so a later visual design pass can
  * restyle this route without re-authoring the orientation.
  */
-import { also, command, identity, onward } from '../lib/homepage';
-import { withSiteBase } from '../lib/skill-pages';
+import { command, identity, onward, secondaryLinks } from '../lib/homepage';
+import { withSiteBase } from '../lib/site-path';
 
 const faviconHref = withSiteBase('/favicon.svg');
 ---
@@ -50,10 +50,10 @@ const faviconHref = withSiteBase('/favicon.svg');
 			</nav>
 
 			<nav class="also" aria-labelledby="also-heading">
-				<h2 id="also-heading" class="also__heading">{also.heading}</h2>
+				<h2 id="also-heading" class="also__heading">{secondaryLinks.heading}</h2>
 				<ul class="also__list">
 					{
-						also.links.map((link) => (
+						secondaryLinks.links.map((link) => (
 							<li>
 								<a class="also__link" href={withSiteBase(link.path)}>
 									<span class="also__label">{link.label}</span>

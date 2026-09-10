@@ -18,10 +18,3 @@ export function skillSourceUrl(skill: Pick<Skill, 'sourcePath'>): string {
 export function invocationLabel(invocation: SkillInvocation): string {
 	return invocation === 'user-typed' ? 'Typed by a user' : 'Model-invoked';
 }
-
-export function withSiteBase(pathname: string): string {
-	const raw = (import.meta.env.BASE_URL as string | undefined) ?? '/';
-	const root = raw.replace(/\/$/, '');
-	const suffix = pathname.startsWith('/') ? pathname : `/${pathname}`;
-	return `${root}${suffix}`;
-}
