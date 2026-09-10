@@ -1,3 +1,10 @@
+# Pages generated at build time from plugin source. Do not hand-edit.
+src/content/docs/the-bar.md
+src/content/docs/smells.md
+src/content/docs/reference/prior-art.md
+src/content/docs/reference/intake.md
+src/content/docs/reference/jira.md
+
 # build output
 dist/
 # generated types

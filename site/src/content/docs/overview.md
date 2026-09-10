@@ -14,9 +14,9 @@ orientation surface. These pages are the reference around it.
 ## What is here today
 
 This overview exists so the documentation navigation works. [Install](./install.mdx)
-is the first page to follow. Later pages will cover how the pipeline runs, the
-house ticket bar, the catalogue of functional-vagueness smells, and explicit
-guarantees about what the tool will not do.
+is the first page to follow. The [house ticket bar](the-bar.md) and the
+[smells catalogue](smells.md) are generated from the files the tool enforces,
+not rewritten here. Prior art, intake, and JIRA mechanics sit under Reference.
 
 The current [skill inventory](how-it-works.md) is generated from the plugin
 manifest. The version shown there is the version in that file, not a number

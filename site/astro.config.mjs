@@ -1,17 +1,38 @@
 // @ts-check
+import path from 'node:path';
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import { loadInventory } from './src/lib/content.ts';
 import { PM_PLUGIN_ROOT } from './src/lib/plugin-root.ts';
+import {
+	SITE_BASE,
+	SOURCE_PAGES,
+	writeSourcePages,
+} from './src/lib/source-docs.ts';
+
+const docsDir = path.resolve('src/content/docs');
+
+function generateSourceDocs() {
+	writeSourcePages({
+		pluginRoot: PM_PLUGIN_ROOT,
+		docsDir,
+		siteBase: SITE_BASE,
+	});
+}
 
 // Schema-validate the live inventory at build time. A manifest that disagrees
 // with disk fails the build instead of publishing a wrong page.
 loadInventory(PM_PLUGIN_ROOT);
 
+// Render the bar, smells, and reference pages from plugin source so the site
+// cannot drift from the file the tool enforces. Must run before Starlight
+// loads the docs collection.
+generateSourceDocs();
+
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://theclaessens.github.io',
-	base: '/faktion-skills',
+	base: SITE_BASE,
 	integrations: [
 		starlight({
 			title: 'Faktion skills',
@@ -27,9 +48,34 @@ export default defineConfig({
 			],
 			sidebar: [
 				{ label: 'Install', slug: 'install' },
+				{ label: 'The bar', slug: 'the-bar' },
+				{ label: 'Smells', slug: 'smells' },
 				{ label: 'How it works', slug: 'how-it-works' },
+				{
+					label: 'Reference',
+					items: [
+						{ label: 'Prior art', slug: 'reference/prior-art' },
+						{ label: 'Intake', slug: 'reference/intake' },
+						{ label: 'JIRA mechanics', slug: 'reference/jira' },
+					],
+				},
 				{ label: 'Overview', slug: 'overview' },
 			],
 		}),
 	],
+	vite: {
+		plugins: [
+			{
+				name: 'generate-source-docs',
+				buildStart() {
+					generateSourceDocs();
+					for (const page of SOURCE_PAGES) {
+						this.addWatchFile(
+							path.join(PM_PLUGIN_ROOT, ...page.sourcePath.split('/')),
+						);
+					}
+				},
+			},
+		],
+	},
 });
