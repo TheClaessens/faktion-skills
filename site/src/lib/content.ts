@@ -8,6 +8,8 @@ export type Skill = {
 	name: string;
 	description: string;
 	invocation: SkillInvocation;
+	/** Plugin-relative posix path to `SKILL.md`. */
+	sourcePath: string;
 };
 
 export type Inventory = {
@@ -33,6 +35,7 @@ const inventorySchema = z.object({
 			name: z.string().min(1),
 			description: z.string().min(1),
 			invocation: z.enum(['model-invoked', 'user-typed']),
+			sourcePath: z.string().min(1),
 		}),
 	),
 });
@@ -66,6 +69,7 @@ export function loadInventory(pluginRoot: string): Inventory {
 				parsed.data['disable-model-invocation'] === true
 					? 'user-typed'
 					: 'model-invoked',
+			sourcePath: relativeFile,
 		} satisfies Skill;
 	});
 
