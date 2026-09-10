@@ -10,6 +10,7 @@ function withBase(path: string) {
 }
 
 const docsHref = withBase('/overview/');
+const installHref = withBase('/install/');
 const faviconHref = withBase('/favicon.svg');
 ---
 
@@ -43,11 +44,11 @@ const faviconHref = withBase('/favicon.svg');
 			</p>
 			<p>
 				If you do not write tickets for a living, this is not aimed at you. If
-				you do, start with the documentation — install, the pipeline, and the
-				bar itself land on later pages.
+				you do, install first. The pipeline and the bar land on later pages.
 			</p>
-			<p>
-				<a class="docs-link" href={docsHref}>Read the documentation</a>
+			<p class="actions">
+				<a class="docs-link" href={installHref}>Install</a>
+				<a class="docs-link-secondary" href={docsHref}>Read the documentation</a>
 			</p>
 		</main>
 	</body>
@@ -119,18 +120,36 @@ const faviconHref = withBase('/favicon.svg');
 		border-radius: 0.25rem;
 	}
 
-	.docs-link {
-		display: inline-block;
+	.actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		align-items: center;
 		margin-top: 0.5rem;
+	}
+
+	.docs-link,
+	.docs-link-secondary {
+		display: inline-block;
 		padding: 0.7rem 1rem;
 		font-weight: 600;
-		color: var(--bg);
-		background: var(--fg);
 		text-decoration: none;
 		border-radius: 0.4rem;
 	}
 
-	.docs-link:focus-visible {
+	.docs-link {
+		color: var(--bg);
+		background: var(--fg);
+	}
+
+	.docs-link-secondary {
+		color: var(--fg);
+		background: transparent;
+		border: 1px solid var(--fg);
+	}
+
+	.docs-link:focus-visible,
+	.docs-link-secondary:focus-visible {
 		outline: 3px solid var(--accent);
 		outline-offset: 3px;
 	}

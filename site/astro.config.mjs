@@ -19,7 +19,10 @@ export default defineConfig({
 					href: 'https://github.com/TheClaessens/faktion-skills',
 				},
 			],
-			sidebar: [{ label: 'Overview', slug: 'overview' }],
+			sidebar: [
+				{ label: 'Install', slug: 'install' },
+				{ label: 'Overview', slug: 'overview' },
+			],
 		}),
 	],
 });
