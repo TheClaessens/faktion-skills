@@ -9,6 +9,18 @@ English only. Do not add translation scaffolding.
 If `src/content/walkthrough/` exists, leave it. Capture files for the worked
 example live there and are published by a later ticket.
 
+## Test
+
+The content module (inventory loader and document transform) is tested with
+Vitest against fixture directories, never the live plugin tree:
+
+```bash
+nvm use && npm test
+```
+
+Run that from this directory. Editing a real skill must not turn a unit test
+red; the live plugin is loaded only at build time.
+
 ## Build
 
 From this directory, after Node is selected from the repository-root `.nvmrc`:
